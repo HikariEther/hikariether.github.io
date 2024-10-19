@@ -28,7 +28,7 @@ excerpt_link: Read More
 
 # RSS
 # need https://github.com/hexojs/hexo-generator-feed
-rss: atom.xml
+# rss: atom.xml
 
 # analytics
 baidu_analytics: false
@@ -70,7 +70,7 @@ show_count: false
 recent_posts_limits: 5
 
 social:
-  # email: mailto:xxx@gmail.com
+  # email: mailto:2469938295@qq.com
   # github: https://github.com/yourname
   # google: https://plus.google.com/yourname
   # twitter: https://twitter.com/yourname
@@ -105,7 +105,7 @@ footer:
 # need https://github.com/CHENXCHEN/hexo-renderer-markdown-it-plus
 # use katex
 math:
-  enable: false
+  enable: true
 
 # need https://github.com/webappdevelp/hexo-filter-mermaid-diagrams
 mermaid: ## mermaid url https://github.com/knsv/mermaid
