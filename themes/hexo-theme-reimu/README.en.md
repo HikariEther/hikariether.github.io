@@ -6,7 +6,7 @@
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/hexo-theme-reimu">
   <img src="https://wakatime.com/badge/user/a6ea8444-9e83-48bb-9744-09a19ac07114/project/fe59c195-6633-4ee8-89c0-e1b24fa1fff4.svg" alt="wakatime">
   <p align="center">
-  ❤ Hakurei Reimu ❤
+  💘 Hakurei Reimu 💘
   </p>
 
 [Demo](https://d-sketon.github.io)
@@ -21,6 +21,8 @@ A Hakurei Reimu style Hexo theme.
 A combination of [landscape](https://github.com/hexojs/hexo-theme-landscape)、[Tangyuxian](https://github.com/tangyuxian/hexo-theme-tangyuxian) and [Shoka](https://github.com/amehime/hexo-theme-shoka) themes.
 
 See [astro-theme-reimu](https://github.com/D-Sketon/astro-theme-reimu) for the [Astro](https://astro.build) theme.
+
+See [hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu) for the [Hugo](https://gohugo.io) theme.
 
 **ISSUE and PR Welcome!**
 
@@ -219,10 +221,10 @@ clipboard:
 ### Site comments
 
 > In-site comments can be controlled independently of each post using `comments` in Front matter.  
-> Comments are not shown when `comments` is `false`, and are shown or not shown when `true` or not filled in, depending on the `_config_yml` configuration.
+> Comments are not shown when `comments` is `false`, and are shown or not shown when `true` or not filled in, depending on the `_config.yml` configuration.
 
 If based on [Valine](https://valine.js.org/)  
-Please refer to its official documentation to complete the configuration of `LeanCloud` and change `valine.enable` to `true` in the inner `_config_yml` and fill in your own `appId` and `appKey`
+Please refer to its official documentation to complete the configuration of `LeanCloud` and change `valine.enable` to `true` in the inner `_config.yml` and fill in your own `appId` and `appKey`
 
 ```yaml
 valine:
@@ -232,7 +234,7 @@ valine:
 ```
 
 If based on [Waline](https://waline.js.org/)  
-Please refer to its [official documentation](https://waline.js.org/guide/get-started/) to complete the `LeanCloud` configuration and change `waline.enable` to `true` in the inner `_config_yml`, and fill in your own `serverURL`
+Please refer to its [official documentation](https://waline.js.org/guide/get-started/) to complete the `LeanCloud` configuration and change `waline.enable` to `true` in the inner `_config.yml`, and fill in your own `serverURL`
 
 ```yaml
 waline:
@@ -260,7 +262,7 @@ waline:
 ```
 
 If based on [twikoo](https://twikoo.js.org)  
-Please refer to its [official documentation](https://twikoo.js.org/quick-start.html) to complete the Tencent Cloud or Vercel deployment, and change `twikoo.enable` to `true` in the inner `_config_yml`, and fill in your own `envId`.
+Please refer to its [official documentation](https://twikoo.js.org/quick-start.html) to complete the Tencent Cloud or Vercel deployment, and change `twikoo.enable` to `true` in the inner `_config.yml`, and fill in your own `envId`.
 
 ```yml
 twikoo:
@@ -269,7 +271,7 @@ twikoo:
   region:
 ```
 
-If based on [giscus](https://giscus.app/zh-CN), please refer to the documentation to complete the configuration of the repository and change `giscus.enable` to `true` in the inner `_config_yml`, and fill in the corresponding data.
+If based on [giscus](https://giscus.app/zh-CN), please refer to the documentation to complete the configuration of the repository and change `giscus.enable` to `true` in the inner `_config.yml`, and fill in the corresponding data.
 
 ```yml
 giscus:
@@ -288,7 +290,7 @@ giscus:
 ```
 
 If based on [gitalk](https://gitalk.github.io/)  
-Please refer to its [official documentation](https://github.com/gitalk/gitalk?tab=readme-ov-file#usage) to complete the repository configuration, and change `gitalk.enable` to `true` in the inner `_config_yml` and fill in the corresponding data.
+Please refer to its [official documentation](https://github.com/gitalk/gitalk?tab=readme-ov-file#usage) to complete the repository configuration, and change `gitalk.enable` to `true` in the inner `_config.yml` and fill in the corresponding data.
 
 ```yml
 gitalk:
@@ -333,7 +335,7 @@ algolia:
     - title
 ```
 
-Change `algolia_search.enable` to `true` in the inner `_config_yml`
+Change `algolia_search.enable` to `true` in the inner `_config.yml`
 
 ```yaml
 algolia_search:
@@ -353,7 +355,7 @@ search:
   content: true
 ```
 
-In the inner `_config_yml` change `generator_search.enable` to `true
+In the inner `_config.yml` change `generator_search.enable` to `true
 
 ```yaml
 generator_search:
@@ -373,7 +375,7 @@ npm uninstall hexo-renderer-marked --save
 npm install hexo-renderer-markdown-it-plus --save
 ```
 
-Change `math.enable` to `true` in the inner `_config_yml`
+Change `math.enable` to `true` in the inner `_config.yml`
 
 ```yaml
 math:
@@ -392,7 +394,7 @@ Please install [hexo-filter-mermaid-diagrams](https://github.com/webappdevelp/he
 npm install hexo-filter-mermaid-diagrams --save
 ```
 
-Change `mermaid.enable` to `true` in the inner `_config_yml`
+Change `mermaid.enable` to `true` in the inner `_config.yml`
 
 ```yaml
 mermaid:
@@ -548,11 +550,11 @@ copyright: true # Whether to display the copyright card
 
 #### quicklink (v0.2.3+)
 
-Enabled by default
+Disabled by default
 
 ```yaml
 quicklink:
-  enable: true
+  enable: false
   timeout: 3000 # Timeout for quicklink
   priority: true # Whether to prioritize loading the page
   ignores: [] # Ignore the specified link, only support string

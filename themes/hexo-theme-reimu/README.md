@@ -6,7 +6,7 @@
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/hexo-theme-reimu">
   <img src="https://wakatime.com/badge/user/a6ea8444-9e83-48bb-9744-09a19ac07114/project/fe59c195-6633-4ee8-89c0-e1b24fa1fff4.svg" alt="wakatime">
   <p align="center">
-  ❤ Hakurei Reimu ❤
+  💘 博麗 霊夢 💘
   </p>
 
 [演示网站](https://d-sketon.github.io) | [开发日志](https://d-sketon.github.io/20240601/hexo-theme-reimu-log/)
@@ -20,6 +20,8 @@
 本人是车车人，所以制作了这样一款博丽灵梦风格的 Hexo 主题，融合了 [landscape](https://github.com/hexojs/hexo-theme-landscape)、[Tangyuxian](https://github.com/tangyuxian/hexo-theme-tangyuxian) 和 [Shoka](https://github.com/amehime/hexo-theme-shoka) 三个主题
 
 [Astro](https://astro.build) 主题请参见 [astro-theme-reimu](https://github.com/D-Sketon/astro-theme-reimu)
+
+[Hugo](https://gohugo.io) 主题请参见 [hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu)
 
 **欢迎提交 ISSUE 和 PR！**
 
@@ -218,10 +220,10 @@ clipboard:
 ### 站内评论
 
 > 站内评论可以使用 Front matter 中的 `comments` 独立控制每篇文章是否显示评论。  
-> 当 `comments` 为 `false` 时不显示评论，`true` 或不填时根据 `_config_yml` 的配置决定是否显示。
+> 当 `comments` 为 `false` 时不显示评论，`true` 或不填时根据 `_config.yml` 的配置决定是否显示。
 
 若基于 [Valine](https://valine.js.org/)  
-请参考其官方文档完成 `LeanCloud` 的配置，并在内层 `_config_yml` 中将 `valine.enable` 改为 `true`，并填入自己的 `appId` 和 `appKey`
+请参考其官方文档完成 `LeanCloud` 的配置，并在内层 `_config.yml` 中将 `valine.enable` 改为 `true`，并填入自己的 `appId` 和 `appKey`
 
 ```yaml
 valine:
@@ -231,7 +233,7 @@ valine:
 ```
 
 若基于 [Waline](https://waline.js.org/)  
-请参考其[官方文档](https://waline.js.org/guide/get-started/)完成 `LeanCloud` 的配置，并在内层 `_config_yml` 中将 `waline.enable` 改为 `true`，并填入自己的 `serverURL`
+请参考其[官方文档](https://waline.js.org/guide/get-started/)完成 `LeanCloud` 的配置，并在内层 `_config.yml` 中将 `waline.enable` 改为 `true`，并填入自己的 `serverURL`
 
 ```yaml
 waline:
@@ -259,7 +261,7 @@ waline:
 ```
 
 若基于 [twikoo](https://twikoo.js.org)  
-请参考其[官方文档](https://twikoo.js.org/quick-start.html)完成 腾讯云 或 Vercel 部署，并在内层 `_config_yml` 中将 `twikoo.enable` 改为 `true`，并填入自己的 `envId`
+请参考其[官方文档](https://twikoo.js.org/quick-start.html)完成 腾讯云 或 Vercel 部署，并在内层 `_config.yml` 中将 `twikoo.enable` 改为 `true`，并填入自己的 `envId`
 
 ```yml
 twikoo:
@@ -268,7 +270,7 @@ twikoo:
   region:
 ```
 
-若基于 [giscus](https://giscus.app/zh-CN)，请参考文档完成仓库的配置，并在内层 `_config_yml` 中将 `giscus.enable` 改为 `true`，并填入对应的数据
+若基于 [giscus](https://giscus.app/zh-CN)，请参考文档完成仓库的配置，并在内层 `_config.yml` 中将 `giscus.enable` 改为 `true`，并填入对应的数据
 
 ```yml
 giscus:
@@ -287,7 +289,7 @@ giscus:
 ```
 
 若基于 [gitalk](https://gitalk.github.io/)  
-请参考其[官方文档](https://github.com/gitalk/gitalk?tab=readme-ov-file#usage)完成仓库的配置，并在内层 `_config_yml` 中将 `gitalk.enable` 改为 `true`，并填入对应的数据
+请参考其[官方文档](https://github.com/gitalk/gitalk?tab=readme-ov-file#usage)完成仓库的配置，并在内层 `_config.yml` 中将 `gitalk.enable` 改为 `true`，并填入对应的数据
 
 ```yml
 gitalk:
@@ -312,7 +314,7 @@ gitalk:
 npm install hexo-algoliasearch --save
 ```
 
-并参考其 [README](https://github.com/LouisBarranqueiro/hexo-algoliasearch#readme) 完成对 `Algolia` 账号的配置，并在外层 `_confg.yml` 中添加如下配置
+并参考其 [README](https://github.com/LouisBarranqueiro/hexo-algoliasearch#readme) 完成对 `Algolia` 账号的配置，并在外层 `_config.yml` 中添加如下配置
 
 ```yml
 algolia:
@@ -332,7 +334,7 @@ algolia:
     - title
 ```
 
-在内层 `_config_yml` 中将 `algolia_search.enable` 改为 `true`
+在内层 `_config.yml` 中将 `algolia_search.enable` 改为 `true`
 
 ```yaml
 algolia_search:
@@ -352,7 +354,7 @@ search:
   content: true
 ```
 
-在内层 `_config_yml` 中将 `generator_search.enable` 改为 `true`
+在内层 `_config.yml` 中将 `generator_search.enable` 改为 `true`
 
 ```yaml
 generator_search:
@@ -372,7 +374,7 @@ npm uninstall hexo-renderer-marked --save
 npm install hexo-renderer-markdown-it-plus --save
 ```
 
-在内层 `_config_yml` 中将 `math.enable` 改为 `true`
+在内层 `_config.yml` 中将 `math.enable` 改为 `true`
 
 ```yaml
 math:
@@ -391,7 +393,7 @@ math:
 npm install hexo-filter-mermaid-diagrams --save
 ```
 
-在内层 `_config_yml` 中将 `mermaid.enable` 改为 `true`
+在内层 `_config.yml` 中将 `mermaid.enable` 改为 `true`
 
 ```yaml
 mermaid:
@@ -524,10 +526,10 @@ srcset:
 
 #### quicklink（v0.2.3+）
 
-默认开启，打开后可以在用户停留在页面时预加载链接，提高用户体验
+默认关闭，打开后可以在用户停留在页面时预加载链接，提高用户体验
 ```yml
 quicklink:
-  enable: true
+  enable: false
   timeout: 3000 # 预加载超时时间
   priority: true # 是否优先加载
   ignores: [] # 忽略的链接，仅支持字符串
