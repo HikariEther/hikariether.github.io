@@ -264,7 +264,7 @@ animation:
       nav: fade-up
 
 dark_mode:
-  enable: false
+  enable: true
 
 # see https://github.com/D-Sketon/mouse-firework
 firework:

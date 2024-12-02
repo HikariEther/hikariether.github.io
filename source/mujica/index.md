@@ -1,5 +1,8 @@
 ---
-title: Ave Mujica
+title: " "
+date: false
+cover: /mujica/logo.png
+dark_mode: true
 ---
 
 <center><font size=10pt><b>距离 Ave Mujica开播还有</b></font></center>
