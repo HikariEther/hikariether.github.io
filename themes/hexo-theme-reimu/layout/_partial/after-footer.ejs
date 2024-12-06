@@ -30,8 +30,8 @@
 
 <% if (theme.algolia_search.enable) { %>
   <script>
-    var CONFIG = {
-      root: '/',
+    var ALGOLIA_CONFIG = {
+      logo: "<%- url_for('/images/algolia_logo.svg', { relative: false }) %>",
       algolia: {
         applicationID: "<%= config.algolia.appId %>",
         apiKey: "<%= config.algolia.apiKey %>",
@@ -99,6 +99,7 @@
     window.Pjax && new window.Pjax({
       selectors: [
         "#header img",
+        "#header picture",
         "head title",
         "#header-title",
         "#subtitle-wrap",
@@ -283,4 +284,16 @@
     });
   }
 </script>
+<% } %>
+
+<% if (theme.math.enable) { %>
+  <% if (theme.math.katex.enable && theme.math.katex.autoRender) { %>
+    <%- js({src: vendorCdn(theme.vendor.js.katex)[0], integrity: vendorCdnIntegrity(theme.vendor.js.katex)[0], crossorigin: "anonymous", defer: true, 'data-pjax': true}) %>
+    <%- js({src: vendorCdn(theme.vendor.js.katex_auto_render)[0], integrity: vendorCdnIntegrity(theme.vendor.js.katex_auto_render)[0], crossorigin: "anonymous", defer: true, onload: "renderMathInElement(document.body);", 'data-pjax': true}) %>
+  <% } else if (theme.math.mathjax.enable) { %>
+    <%- js({src: vendorCdn(theme.vendor.js.mathjax)[0], integrity: vendorCdnIntegrity(theme.vendor.js.mathjax)[0], crossorigin: "anonymous", defer: true, 'data-pjax': true}) %>
+    <script data-pjax>
+      window.MathJax = <%- JSON.stringify(theme.math.mathjax.options) %>;
+    </script>
+  <% } %>
 <% } %>

@@ -42,7 +42,7 @@
   overflow: hidden
   background: var(--color-header-background)
   box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1)
-  transition: background .3s, top .3s
+  transition: background 1s, top .3s
   z-index: 200
 
   &:hover
@@ -71,7 +71,7 @@ $logo-text
   letter-spacing: 2px
   display: inline-block
   transform: translateY(-20%)
-  text-shadow: 0 0.2rem 0.3rem rgba(0,0,0,.5);
+  text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, .5);
 
   @media mg-large
     font-size: 35px
@@ -150,6 +150,12 @@ $nav-link-wrap
   &:hover .main-nav-icon:before
     transform: rotate(90deg) scale(1.1)
 
+  &:hover .main-nav-icon
+    transform: scale(1.1)
+
+  &:hover .main-nav-icon.rotate
+    transform: rotate(90deg) scale(1.1)
+
 .main-nav-link
   @extend $nav-link
   letter-spacing: 1px
@@ -158,7 +164,6 @@ $nav-link-wrap
 
 .main-nav-icon
   @extend $nav-link
-  // background: url("../images/taichi.png") no-repeat center / 80%
   if reimu_cursor
     cursor: var(--cursor-pointer)
   else
@@ -166,6 +171,13 @@ $nav-link-wrap
   padding: 15px 5px
   display: flex
   align-items: center
+  font-size: 24px
+  font-weight: 400
+  transition: transform 0.3s
+  will-change: transform
+
+  &.rotate
+    transform: rotate(90deg)
 
   &:before
     font-size: 24px

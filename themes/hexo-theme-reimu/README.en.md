@@ -1,4 +1,4 @@
-<img src="https://fastly.jsdelivr.net/gh/D-Sketon/hexo-theme-reimu@main/_screenshot/Reimu_dark.png"/>
+<img src="https://cdn.jsdelivr.net/gh/D-Sketon/hexo-theme-reimu@main/_screenshot/Reimu_dark.png"/>
 <div align = center>
   <h1>hexo-theme-reimu</h1>
   <img alt="NPM License" src="https://img.shields.io/npm/l/hexo-theme-reimu">
@@ -20,9 +20,11 @@
 A Hakurei Reimu style Hexo theme.  
 A combination of [landscape](https://github.com/hexojs/hexo-theme-landscape)、[Tangyuxian](https://github.com/tangyuxian/hexo-theme-tangyuxian) and [Shoka](https://github.com/amehime/hexo-theme-shoka) themes.
 
-See [astro-theme-reimu](https://github.com/D-Sketon/astro-theme-reimu) for the [Astro](https://astro.build) theme.
-
-See [hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu) for the [Hugo](https://gohugo.io) theme.
+|framework|repository|version|stars|
+|-|-|-|-|
+|[Hexo](https://hexo.io/)|[hexo-theme-reimu](https://github.com/D-Sketon/hexo-theme-reimu)|<img alt="version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2FD-Sketon%2Fhexo-theme-reimu%2Fraw%2Fmain%2Fpackage.json&query=%24.version&label=version">|<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/hexo-theme-reimu">|
+|[Astro](https://astro.build)|[astro-theme-reimu](https://github.com/D-Sketon/astro-theme-reimu)|<img alt="version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2FD-Sketon%2Fastro-theme-reimu%2Fraw%2Fmain%2Fpackage.json&query=%24.version&label=version">|<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/astro-theme-reimu">|
+|[Hugo](https://gohugo.io)|[hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu)|<img alt="version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2FD-Sketon%2Fhugo-theme-reimu%2Fraw%2Fmain%2Fpackage.json&query=%24.version&label=version">|<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/hugo-theme-reimu">|
 
 **ISSUE and PR Welcome!**
 
@@ -32,7 +34,7 @@ See [hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu) for the [Hu
 - Compatible with Hexo v6+
 - Responsive Layout
 - Code Highlighting, Code Pasting
-- KaTeX for displaying math formulas
+- KaTeX / MathJax3 for displaying math formulas
 - Mermaid for flowcharts
 - Algolia / hexo-generator-search search
 - valine / waline / twikoo / gitalk / giscus comment system
@@ -44,7 +46,6 @@ See [hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu) for the [Hu
 - Lazy image loading
 - Load Animation
 - TOC
-- Back to top
 - Mouse firework animation
 - pjax
 - ServiceWorker
@@ -53,6 +54,7 @@ See [hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu) for the [Hu
 - Internal tag plugin for providing internal/external/friendly link cards
 - Support the bottom of the article copyright statement
 - Support for configuring custom CDN sources
+- Highly customizable
 
 ## Installation
 
@@ -368,18 +370,49 @@ generator_search:
 
 ### Mathematical formulas
 
-Math formulas are based on [Katex](https://github.com/KaTeX/KaTeX), please install [hexo-renderer-markdown-it-plus](https://github.com/CHENXCHEN/hexo-renderer-markdown-it-plus)
+Disable by default, enable math formula support by changing `math.enable` to `true` in the inner `_config.yml`
+
+> Note: Do not enable both KaTeX and MathJax3
+
+#### KaTeX
+
+If you want to use server-side rendering, please install [@reimujs/hexo-renderer-markdown-it-plus](https://github.com/D-Sketon/hexo-renderer-markdown-it-plus)
 
 ```bash
 npm uninstall hexo-renderer-marked --save
-npm install hexo-renderer-markdown-it-plus --save
+npm install @reimujs/hexo-renderer-markdown-it-plus --save
 ```
 
-Change `math.enable` to `true` in the inner `_config.yml`
+Change `math.katex.enable` to `true` in the inner `_config.yml`
 
 ```yaml
 math:
   enable: true
+  katex:
+    enable: true
+    autoRender: false
+```
+
+If you want to use client-side rendering, you don't need to install the above plugin, just change `math.katex.enable` to `true` in the inner `_config.yml`, and change `autoRender` to `true`
+
+```yaml
+math:
+  enable: true
+  katex:
+    enable: true
+    autoRender: true
+```
+
+#### MathJax3
+
+If you want to use MathJax3, please change `math.mathjax.enable` to `true` in the inner `_config.yml`
+
+```yaml
+math:
+  enable: true
+  mathjax:
+    enable: true
+    options: # MathJax3 Options
 ```
 
 </details>
@@ -439,7 +472,7 @@ rss: atom.xml
 Icon defaults to the iconfont provided with this project (v0.1.3+)
 
 ```yml
-icon_font: 4552607_y484ez0be3f
+icon_font: 4552607_tq6stt6tcg
 ```
 
 If you want to continue using fontawesome icons, set `icon_font` to `false`, which will use the corresponding fontawesome in `vendor`.
@@ -579,6 +612,10 @@ Disabled by default
 sponsor:
   enable: false # Whether to enable sponsorship
   tip: 请作者喝杯咖啡吧！ # Sponsorship prompt
+  icon:
+    url: "../images/taichi.png" # this path is relative to the css/style.css, so it needs to go up one level to reach the images folder
+    rotate: true
+    mask: true # whether to use the images as a mask
   qr:
     - name: 支付宝 # Payment method
       src: "/sponsor/alipay.jpg" # QR code
@@ -590,6 +627,18 @@ Besides, you can also control it through the front-matter of the article, which 
 ---
 sponsor: true # Whether to display the sponsorship
 ---
+```
+
+#### home categories card (v1.0.0+)
+
+Disable by default, enable it to display the category card on the homepage, which can replace the directory in the widget
+
+```yaml
+home_categories:
+  enable: false # Whether to display the home category card?
+  content:
+    - categories: # Category name, the format is consistent with the categories in the front-matter, which can be a string (single-level category) or an array (multi-level category)
+      cover: # Card cover, if not filled in, a random cover will be used
 ```
 
 </details>

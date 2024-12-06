@@ -1,14 +1,15 @@
 ---
 title: " "
-date: false
+date: 2025-1-2
 cover: /mujica/logo.png
-dark_mode: true
 ---
 
 <center><font size=10pt><b>距离 Ave Mujica开播还有</b></font></center>
+<font size=1pt>
 
-$\\[30pt]$
+$\\$
 
+</font>
 <center><font size=10pt id="date"></font></center>
 
 ![](/mujica/mujica.jpg)

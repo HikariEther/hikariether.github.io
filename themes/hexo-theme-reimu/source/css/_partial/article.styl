@@ -5,7 +5,7 @@
   background-image: linear-gradient(to right, var(--red-0) 50%, transparent 0%)
   background-size: 50px 4px
   background-repeat: repeat-x
-  filter: drop-shadow(0px 0px 2px red)
+  filter: drop-shadow(0px 0px 2px var(--red-1))
   transition: opacity 0.3s
 
   &:hover
@@ -85,7 +85,7 @@ $article-meta-tag
 
         &:hover 
           opacity: 0.8
-          text-decoration: none
+          text-decoration: none !important
     else
       &:before
         font-family: var(--font-icon)
@@ -99,7 +99,7 @@ $article-meta-tag
 
         &:hover
           opacity: 0.8
-          text-decoration: none
+          text-decoration: none !important
 
   h2
     margin-bottom: 40px
@@ -242,7 +242,7 @@ $article-meta-tag
     background-image: linear-gradient(to right, var(--red-0) 50%, transparent 0%)
     background-size: 50px 4px
     background-repeat: repeat-x
-    filter: drop-shadow(0px 0px 2px red)
+    filter: drop-shadow(0px 0px 2px var(--red-1))
     transition: .3s
 
   a
@@ -343,7 +343,7 @@ $article-meta-tag
   font-size: 1.2em
   line-height: line-height
   margin-top: 0.8em
-  text-shadow: 0 0.2rem 0.3rem rgba(0,0,0,.5);
+  text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, .5);
 
 .article-gallery
   background: #000
@@ -369,7 +369,24 @@ $article-meta-tag
     max-width: 100%
     margin: 0 auto
 
-.katex-display
-  overflow-x: auto
-  overflow-y: hidden
+if hexo-config("math.enable") and hexo-config("math.katex.enable")
+  .katex-display
+    overflow-x: auto
+    overflow-y: hidden
 
+  .katex
+    width: calc(100% - 2px)
+
+  .katex-html
+    padding: 3px
+    .base
+      margin: 0 auto
+
+  .katex-html:has(span.tag)
+    display: flex !important
+
+
+  .katex-display>.katex>.katex-html>.tag
+    position: relative !important
+    float: right
+    margin-left: 0.25rem

@@ -1,4 +1,4 @@
-<img src="https://fastly.jsdelivr.net/gh/D-Sketon/hexo-theme-reimu@main/_screenshot/Reimu_dark.png"/>
+<img src="https://cdn.jsdelivr.net/gh/D-Sketon/hexo-theme-reimu@main/_screenshot/Reimu_dark.png"/>
 <div align = center>
   <h1>hexo-theme-reimu</h1>
   <img alt="NPM License" src="https://img.shields.io/npm/l/hexo-theme-reimu">
@@ -19,9 +19,11 @@
 
 本人是车车人，所以制作了这样一款博丽灵梦风格的 Hexo 主题，融合了 [landscape](https://github.com/hexojs/hexo-theme-landscape)、[Tangyuxian](https://github.com/tangyuxian/hexo-theme-tangyuxian) 和 [Shoka](https://github.com/amehime/hexo-theme-shoka) 三个主题
 
-[Astro](https://astro.build) 主题请参见 [astro-theme-reimu](https://github.com/D-Sketon/astro-theme-reimu)
-
-[Hugo](https://gohugo.io) 主题请参见 [hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu)
+|framework|repository|version|stars|
+|-|-|-|-|
+|[Hexo](https://hexo.io/)|[hexo-theme-reimu](https://github.com/D-Sketon/hexo-theme-reimu)|<img alt="version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2FD-Sketon%2Fhexo-theme-reimu%2Fraw%2Fmain%2Fpackage.json&query=%24.version&label=version">|<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/hexo-theme-reimu">|
+|[Astro](https://astro.build)|[astro-theme-reimu](https://github.com/D-Sketon/astro-theme-reimu)|<img alt="version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2FD-Sketon%2Fastro-theme-reimu%2Fraw%2Fmain%2Fpackage.json&query=%24.version&label=version">|<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/astro-theme-reimu">|
+|[Hugo](https://gohugo.io)|[hugo-theme-reimu](https://github.com/D-Sketon/hugo-theme-reimu)|<img alt="version" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2FD-Sketon%2Fhugo-theme-reimu%2Fraw%2Fmain%2Fpackage.json&query=%24.version&label=version">|<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D-Sketon/hugo-theme-reimu">|
 
 **欢迎提交 ISSUE 和 PR！**
 
@@ -31,7 +33,7 @@
 - 兼容 Hexo v6+
 - 响应式布局
 - 代码高亮，代码粘贴
-- KaTeX 展示数学公式
+- KaTeX / MathJax3 展示数学公式
 - Mermaid 展示流程图
 - Algolia / hexo-generator-search 搜索
 - valine / waline / twikoo / gitalk / giscus 评论系统
@@ -43,7 +45,6 @@
 - 图片懒加载
 - 加载动画
 - TOC
-- 回到顶部
 - 鼠标动画
 - pjax
 - ServiceWorker
@@ -52,6 +53,7 @@
 - 内部提供内链/外链/友链卡片的标签插件
 - 文章底部版权声明
 - 配置自定义 CDN 源
+- 高度自定义
 
 ## 安装
 
@@ -367,18 +369,49 @@ generator_search:
 
 ### 数学公式
 
-数学公式基于 [Katex](https://github.com/KaTeX/KaTeX)，请安装 [hexo-renderer-markdown-it-plus](https://github.com/CHENXCHEN/hexo-renderer-markdown-it-plus)
+默认关闭，在内层 `_config.yml` 中将 `math.enable` 改为 `true` 可以开启数学公式支持
+
+> 注意不要同时开启 KaTeX 和 MathJax3
+
+#### KaTeX
+
+如果想要基于服务端渲染，请安装 [@reimujs/hexo-renderer-markdown-it-plus](https://github.com/D-Sketon/hexo-renderer-markdown-it-plus)
 
 ```bash
 npm uninstall hexo-renderer-marked --save
-npm install hexo-renderer-markdown-it-plus --save
+npm install @reimujs/hexo-renderer-markdown-it-plus --save
 ```
 
-在内层 `_config.yml` 中将 `math.enable` 改为 `true`
+在内层 `_config.yml` 中将 `math.katex.enable` 改为 `true`
 
 ```yaml
 math:
   enable: true
+  katex:
+    enable: true
+    autoRender: false
+```
+
+如果想要基于客户端渲染，则无需安装插件，只需在内层 `_config.yml` 中将 `math.katex.enable` 改为 `true`，并将 `autoRender` 也改为 `true`
+
+```yaml
+math:
+  enable: true
+  katex:
+    enable: true
+    autoRender: true
+```
+
+#### MathJax3
+
+如果想要使用 MathJax3，请在内层 `_config.yml` 中将 `math.mathjax.enable` 改为 `true`
+
+```yaml
+math:
+  enable: true
+  mathjax:
+    enable: true
+    options: # MathJax 配置
 ```
 
 </details>
@@ -438,7 +471,7 @@ rss: atom.xml
 Icon 默认使用本项目提供的 iconfont（v0.1.3+）
 
 ```yml
-icon_font: 4552607_y484ez0be3f
+icon_font: 4552607_tq6stt6tcg
 ```
 
 如果想要继续使用 fontawesome 图标，请将 `icon_font` 设置为 `false`，此时会使用 `vendor` 中对应的 fontawesome
@@ -575,6 +608,10 @@ outdate:
 sponsor:
   enable: false # 是否展示赞助二维码？
   tip: 请作者喝杯咖啡吧！ # 赞助提示
+  icon:
+    url: "../images/taichi.png" # 赞助图标，相对于 css/style.css 的路径，所以需要向上一级才能找到 images 文件夹
+    rotate: true # 是否旋转图标
+    mask: true # 是否将图片作为遮罩（即只显示 png 图片的轮廓）
   qr:
     - name: 支付宝 # 二维码名称
       src: "/sponsor/alipay.jpg" # 二维码路径，请自行填写
@@ -586,6 +623,17 @@ sponsor:
 ---
 sponsor: true # 是否展示赞助二维码？
 ---
+```
+
+#### 首页目录卡片（v1.0.0+）
+
+默认关闭，打开后可以在首页展示目录卡片，用于代替 widget 中的目录
+```yml
+home_categories:
+  enable: false # 是否展示首页目录卡片？
+  content:
+    - categories: # 目录名称，格式和 front-matter 中的 categories 一致，可以为字符串（单级分类）或数组（多级分类）
+      cover: # 卡片封面，不填则使用随机封面
 ```
 
 </details>

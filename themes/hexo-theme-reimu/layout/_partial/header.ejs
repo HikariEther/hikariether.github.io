@@ -1,10 +1,21 @@
 <div id="header-nav">
   <nav id="main-nav">
-    <% for (var i in theme.menu) { %>
-      <span class="main-nav-link-wrap">
-        <div class="main-nav-icon icon-taichi"></div>
-        <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= __(i) %></a>
-      </span>
+    <% if (!Array.isArray(theme.menu)) { %>
+      <% for (let i in theme.menu) { %>
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon-taichi"></div>
+          <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= __(i) %></a>
+        </span>
+      <% } %>
+    <% } else { %>
+      <% for (let item of theme.menu) { %>
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon <%= (item.icon === 'e62b' && theme.icon_font) || (item.icon === 'f6ad' && !theme.icon_font) || !item.icon ? 'rotate' : '' %>">
+            <%- item.icon ? `&#x${item.icon};` : (theme.icon_font ? '&#xe62b;' : '&#xf6ad;') %>
+          </div>
+          <a class="main-nav-link" href="<%- url_for(item.url) %>"><%= __(item.name) %></a>
+        </span>
+      <% } %>
     <% } %>
     <a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
@@ -24,13 +35,13 @@
   <% if (post.cover && post.cover.startsWith("rgb")) { %>
     <div style="position: absolute;top: 0;left: 0;width: 100%;height: 150%;z-index: -2;display: block;background: <%- post.cover %>;mask: linear-gradient(to top, transparent, #fff 50%);"></div>
   <% } else if (post.cover) { %>
-    <img fetchpriority="high" src="<%= post.cover %>" alt="<%= post.title %>">
+    <img fetchpriority="high" src="<%- url_for(post.cover, {relative: false}) %>" alt="<%= post.title %>">
   <% } else if (post.cover == false) { %>
 
   <% } else { %>
     <% if (theme.banner_srcset.enable) { %>
       <picture>
-        <% for (var i of theme.banner_srcset.srcset) { %>
+        <% for (let i of theme.banner_srcset.srcset) { %>
           <source media="<%= i.media %>" srcset="<%- url_for(i.src, {relative: false}) %>">
         <% } %>
         <img fetchpriority="high" src="<%- url_for(theme.banner, {relative: false}) %>" alt="<%= post.title %>">

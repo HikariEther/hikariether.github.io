@@ -58,7 +58,7 @@
     opacity: 0
     object-fit: cover
     margin: 20px
-    box-shadow: 0 0 15px 5px rgba(255, 78, 106, 0.55)
+    box-shadow: 0 0 15px 5px var(--color-red-6-shadow)
     will-change: transform
     transition: .3s
 
@@ -145,83 +145,109 @@ $sidebar-state-content
   &:hover
     transform: scale(1.2)
 
-.icon-email
-  color: #ff7777
+if ('email' in social-keys)
+  .icon-email
+    color: #ff7777
 
-.icon-github
-  color: #191717
+if ('github' in social-keys)
+  .icon-github
+    color: #191717
+    transition: 1s
 
-.icon-google
-  color: #4285F4
+  [data-theme="dark"] .icon-github
+    color: #bc88ff
 
-.icon-facebook
-  color: #3b5998
+if ('google' in social-keys)
+  .icon-google
+    color: #4285F4
 
-.icon-twitter
-  color: #191717
+if ('facebook' in social-keys)
+  .icon-facebook
+    color: #3b5998
 
-.icon-instagram
-  color: #e1306c
+if ('twitter' in social-keys)
+  .icon-twitter
+    color: #191717
 
-.icon-linkedin
-  color: #0e76a8
+if ('instagram' in social-keys)
+  .icon-instagram
+    color: #e1306c
 
-.icon-pinterest
-  color: #bd081c
+if ('linkedin' in social-keys)
+  .icon-linkedin
+    color: #0e76a8
 
-.icon-youtube
-  color: #ff0000
+if ('pinterest' in social-keys)
+  .icon-pinterest
+    color: #bd081c
 
-.icon-vimeo
-  color: #1ab7ea
+if ('youtube' in social-keys)
+  .icon-youtube
+    color: #ff0000
 
-.icon-flickr
-  color: #ff0084
+if ('vimeo' in social-keys)
+  .icon-vimeo
+    color: #1ab7ea
 
-.icon-dribbble
-  color: #ea4c89
+if ('flickr' in social-keys)
+  .icon-flickr
+    color: #ff0084
 
-.icon-behance
-  color: #1769ff
+if ('dribbble' in social-keys)
+  .icon-dribbble
+    color: #ea4c89
 
-.icon-bilibili
-  color: #00a1d6
+if ('behance' in social-keys)
+  .icon-behance
+    color: #1769ff
 
-.icon-weibo
-  color: #e6162d
+if ('bilibili' in social-keys)
+  .icon-bilibili
+    color: #00a1d6
 
-.icon-zhihu
-  color: #0084ff
+if ('weibo' in social-keys)
+  .icon-weibo
+    color: #e6162d
 
-.icon-douban
-  color: #007722
+if ('zhihu' in social-keys)
+  .icon-zhihu
+    color: #0084ff
 
-.icon-reddit
-  color: #ff4500
+if ('reddit' in social-keys)
+  .icon-reddit
+    color: #ff4500
 
-.icon-tumblr
-  color: #35465c
+if ('tumblr' in social-keys)
+  .icon-tumblr
+    color: #35465c
 
-.icon-medium
-  color: #00ab6c
+if ('medium' in social-keys)
+  .icon-medium
+    color: #00ab6c
 
-.icon-deviantart
-  color: #05cc47
+if ('deviantart' in social-keys)
+  .icon-deviantart
+    color: #05cc47
 
-.icon-stackoverflow
-  color: #f48024
+if ('stackoverflow' in social-keys)
+  .icon-stackoverflow
+    color: #f48024
 
-.icon-keybase
-  color: #33a0ff
+if ('keybase' in social-keys)
+  .icon-keybase
+    color: #33a0ff
 
-.icon-telegram
-  color: #0088cc
+if ('telegram' in social-keys)
+  .icon-telegram
+    color: #0088cc
 
-.icon-discord
-  color: #7289da
+if ('discord' in social-keys)
+  .icon-discord
+    color: #7289da
 
-.icon-steam
-  color: #171a21
+if ('steam' in social-keys)
+  .icon-steam
+    color: #171a21
 
 $menu-link
   color: var(--color-link)
@@ -242,7 +268,7 @@ $menu-link
   position: relative
 
   justify-content: center
-  border: 10px rgba(255, 88, 88, 0.3) double
+  border: 10px var(--color-red-3-shadow) double
   transition: border .5s
 
   &:hover
@@ -251,18 +277,31 @@ $menu-link
   &:hover .sidebar-menu-icon:before
     transform: rotate(90deg) scale(1.1)
 
+  &:hover .sidebar-menu-icon
+    transform: scale(1.1)
+
+  &:hover .sidebar-menu-icon.rotate
+    transform: rotate(90deg) scale(1.1)
+
 .sidebar-menu-icon
   @extend $menu-link
-  // background: url("../images/taichi.png") no-repeat center / 80%
+  font-size: 24px
+  font-weight: 400
+  transition: transform .3s
+  will-change: transform
+
   &:before
     font-size: 24px
     font-weight: 400
     transform: rotate(90deg)
     transition: transform .3s
     will-change: transform
+  
+  &.rotate
+    transform: rotate(90deg)
 
   pointer-events: none
-  padding: 5px 5px
+  padding: 5px
   display: flex
   align-items: center
 
@@ -280,7 +319,7 @@ $menu-link
 .link-active
   background: var(--red-0)
   border: 10px var(--color-wrap) double
-  box-shadow: 0 0 10px 3px rgba(255, 78, 106, 0.55)
+  box-shadow: 0 0 10px 3px var(--color-red-6-shadow)
   opacity: 0.8
 
   &:hover
@@ -293,8 +332,6 @@ $menu-link
   .sidebar-menu-icon
     opacity: 1
     color: #fff
-    // background: url("../images/taichi-fill.png") no-repeat center / 80%
-
 
 .sidebar-toc
   width: 100%
@@ -335,7 +372,7 @@ $menu-link
       display: inline-block
       vertical-align: middle
       margin-right: 11px
-      box-shadow: 0 2px 12px var(--color-h2-after-shadow)
+      box-shadow: 0 2px 12px var(--color-red-6-shadow)
       opacity: 0.5
       transition: .3s
 
@@ -370,13 +407,9 @@ $menu-link
     height: auto
     transform: scaleY(1)
 
-  .active>a, .current>a
+  .active>a, .current>a, .active>a>span, .current>a>span
     color: var(--red-0)
     opacity: 1
-
-    &>span
-      color: var(--red-0)
-      opacity: 1
 
 .toc-title
   letter-spacing: 2px
@@ -399,7 +432,7 @@ $siderbar-btn-icon
   background: var(--red-3)
   color: white
   font-weight: bold
-  box-shadow: 0 0 10px rgba(255, 78, 106, 0.55)
+  box-shadow: 0 0 10px var(--color-red-6-shadow)
   border-radius: post-radius
   margin: 20px
   transition: .3s

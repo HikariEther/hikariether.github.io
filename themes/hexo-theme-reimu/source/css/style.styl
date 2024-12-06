@@ -39,7 +39,7 @@ body
   -webkit-font-smoothing: antialiased
   text-size-adjust: 100%
   font-family: font-basic
-  transition: background 0.3s
+  transition: background 1s
 
   ::selection
     background: var(--red-1)
@@ -74,7 +74,7 @@ if reimu_cursor
   left: 0
   height: 100%
   width: 100%
-  transition: 0.3s
+  transition: 1s
   background: var(--color-background)
 
 #main
@@ -102,17 +102,21 @@ if sidebar
       margin: 0 1%
 
 #mask
-  display: none
   z-index: 1000
   position: fixed
   top: 0
   left: 0
   width: 100%
   height: 100%
-  background: rgba(0, 0, 0, 0.5)
-
-  .mobile-nav-on &
-    display: block
+  background: rgba(0, 0, 0, 0.3)
+  backdrop-filter: blur(3px)
+  -webkit-backdrop-filter: blur(3px)
+  opacity: 1
+  transition: 0.3s
+  
+  &.hide
+    opacity: 0
+    visibility: hidden
 
 @import "_partial/header"
 @import "_partial/article"
@@ -124,7 +128,9 @@ if sidebar
 @import "_partial/highlight"
 @import "_partial/friend"
 @import "_partial/card"
-@import "_partial/top"
+
+if hexo-config("top.enable")
+  @import "_partial/top"
 
 if post-has-sponsor
   @import "_partial/sponsor"
