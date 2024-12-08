@@ -13,8 +13,8 @@ cover: /mujica/logo.png
 </center>
 
 ![](/mujica/mujica.jpg)
-<font size=5pt>第一集枪版资源:
-<a href="https://video.u422487.nyat.app:41330/web1/video.html?id=f0e5ba68-f43e-479a-b402-65ee64d3963c">HikariEther的弹弹play媒体库（只有在博主电脑开启时才可访问）</a>
+<font size=4pt>第一集枪版资源:
+<a href="https://video.u422487.nyat.app:41330/web1/video.html?id=f0e5ba68-f43e-479a-b402-65ee64d3963c">HikariEther的弹弹play媒体库（只有在博主电脑开启时才可访问，建议在审查元素中下载观看）</a>
 <a href="https://pan.baidu.com/s/1SSofSviipm4VsYW2vhcc-Q?pwd=saki">百度网盘（提取码: saki）</a>
 </font>
 <script>
