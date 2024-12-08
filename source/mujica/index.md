@@ -13,7 +13,10 @@ cover: /mujica/logo.png
 </center>
 
 ![](/mujica/mujica.jpg)
-<font size=5pt>第一集枪版资源下载: <a href="https://video.u422487.nyat.app:41330/web1/video/f0e5ba68-f43e-479a-b402-65ee64d3963c.mp4?token=AvfW7RVq8hj93liGCUblrKArZc39V%2B4sq%2FdYZKFitentr0KNSLd5TL%2BsBVyjP1EW">HikariEther的弹弹play媒体库资源</a></font>
+<font size=5pt>第一集枪版资源:
+<a href="https://video.u422487.nyat.app:41330/web1/video.html?id=f0e5ba68-f43e-479a-b402-65ee64d3963c">HikariEther的弹弹play媒体库（只有在博主电脑开启时才可访问）</a>
+<a href="https://pan.baidu.com/s/1SSofSviipm4VsYW2vhcc-Q?pwd=saki">百度网盘（提取码: saki）</a>
+</font>
 <script>
     var a = setInterval(timer, 1000);
     var date = document.getElementById("date");
