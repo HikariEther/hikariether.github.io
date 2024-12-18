@@ -22,7 +22,7 @@ cover: /mujica/logo.png
     var date = document.getElementById("date");
     function timer() {
         var nowTime = new Date();
-        var inputTime = new Date('2025-1-2 21:30:00');
+        var inputTime = new Date('2025-1-2 22:00:00');
         var times = (inputTime - nowTime) / 1000;
         var d = parseInt(times / 60 / 60 / 24);
         d = d < 10 ? '0' + d : d;
