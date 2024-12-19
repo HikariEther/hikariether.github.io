@@ -199,7 +199,9 @@ math:
             ignoreHtmlClass: "tex2jax_ignore",
             processHtmlClass: "tex2jax_process",
           },
-        loader: { load: ["input/asciimath", "[tex]/noerrors"] },
+        loader: {
+          load: ["input/asciimath", "[tex]/noerrors"],
+        },
       }
 
 # mermaid url https://github.com/knsv/mermaid

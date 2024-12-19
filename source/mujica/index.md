@@ -4,9 +4,9 @@ date: 2025-1-2
 cover: /mujica/logo.png
 ---
 
-<center><font size=10pt><b>距离 Ave Mujica开播还有</b></font></center>
+<center id="title"><b>距离「BanG Dream! Ave Mujica」开播还有</b></center>
 <br><br>
-<center><font size=10pt id="date">DD 天 HH 时 MM 分 SS 秒</font></center>
+<center><b id="date">DD 天 HH 时 MM 分 SS 秒</b></center>
 <br>
 <center>
 <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1ZtzsYMEfA&muted=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="513" width="915"></iframe>
@@ -17,6 +17,10 @@ cover: /mujica/logo.png
 <a href="https://video.u422487.nyat.app:41330/web1/video.html?id=f0e5ba68-f43e-479a-b402-65ee64d3963c">HikariEther的弹弹play媒体库（只有在博主电脑开启时才可访问，建议在审查元素中下载观看）</a>
 <a href="https://pan.baidu.com/s/1SSofSviipm4VsYW2vhcc-Q?pwd=saki">百度网盘（提取码: saki）</a>
 </font>
+<style>
+    #date {font-family: "Noto Serif SC"; font-size: 40px}
+    #title {font-size: 40px}
+</style>
 <script>
     var a = setInterval(timer, 1000);
     var date = document.getElementById("date");
