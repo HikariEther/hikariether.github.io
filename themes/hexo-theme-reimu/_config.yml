@@ -173,12 +173,12 @@ math:
   # It's better to use https://github.com/D-Sketon/hexo-renderer-markdown-it-plus for better performance
   # If you don't want to use it, please set `autoRender` to true to enable browser rendering
   katex:
-    enable: true
+    enable: false
     autoRender: false # whether to render the math in the browser, disabled by default
   # if you want to use mathjax
   # mathjax does not need any hexo plugins (no support for server rendering currently)
   mathjax:
-    enable: false
+    enable: true
     options: # see https://docs.mathjax.org/en/latest/web/configuration.html
       {
         tex:
