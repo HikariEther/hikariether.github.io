@@ -48,11 +48,12 @@
 - 鼠标动画
 - pjax
 - ServiceWorker
-- live2d
+- live2d / live2d-widgets
 - reimu 鼠标指针
 - 内部提供内链/外链/友链卡片的标签插件
 - 文章底部版权声明
 - 配置自定义 CDN 源
+- Aplayer / Meting 音乐播放器
 - 高度自定义
 
 ## 安装
@@ -561,6 +562,17 @@ service_worker:
 ```yaml
 live2d:
   enable: false
+  position: left # left | right
+```
+
+#### live2d-widgets
+
+默认关闭
+
+```yaml
+live2d_widgets:
+  enable: false
+  position: left # left | right
 ```
 
 #### reimu 鼠标指针
@@ -667,6 +679,60 @@ home_categories:
       cover:
 ```
 
+#### 音乐播放器（v1.2.0+）
+
+> 使用前建议先打开 Pjax，否则会出现播放器自动暂停的问题
+
+使用Aplayer + Meting（可选）默认关闭
+
+##### 纯Aplayer
+
+将 `player.aplayer.enable` 设置为 `true`，并在 `player.aplayer.options` 中参考 [Aplayer Docs](https://aplayer.js.org/#/home?id=options) 进行配置
+
+```yml
+player:
+  aplayer:
+    enable: true
+    options:
+      audio: [] # audio list
+      fixed:
+      autoplay:
+      loop:
+      order:
+      preload: 
+      volume:
+      mutex:
+      listFolded:
+```
+
+##### Aplayer + Meting
+
+同时将 `player.aplayer.enable` 和 `player.meting.enable` 设置为 `true`，并在 `player.meting.options` 中参考 [Meting Docs](https://github.com/metowolf/MetingJS?tab=readme-ov-file#option) 进行配置，`player.aplayer.options` 为 Aplayer 配置
+
+```yml
+player:
+  aplayer:
+    enable: true
+    options:
+      audio: [] # this option will be overwritten by meting
+      fixed:
+      autoplay:
+      loop:
+      order:
+      preload: 
+      volume:
+      mutex:
+      listFolded:
+  meting:
+    enable: true
+    meting_api: # custom api
+    options:
+      id: 
+      server: 
+      type: 
+      auto:
+```
+
 </details>
 
 <details>
@@ -689,6 +755,9 @@ home_categories:
 ```
 
 其中第一个参数为文章的 `slug`；第二个参数（可选）为卡片展示的封面，如果设置为 `auto` 则自动使用博客的 `banner`；第三个参数（可选）表示文章标题是否被转义
+
+> slug 的生成算法：https://github.com/hexojs/hexo-util/blob/master/lib/slugize.ts
+> 简单来说就是去除文章标题的不可见字符，把文章的标题中的特殊字符 `\s~!@#$%^&*()\-_+=[]{}|\;:"'<>,.?/` 全换成分隔符 `-`，合并连续分隔符并去除首尾分隔符
 
 #### externalLinkCard 外链卡片
 
