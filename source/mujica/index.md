@@ -15,6 +15,7 @@ sidebar: left
 
 ![](/mujica/5.png)
 ![](/mujica/4.png)
+![](/mujica/3.png)
 ![](/mujica/mujica.jpg)
 <style>
     #date {font-family: "Noto Serif SC"; font-size: 40px}
