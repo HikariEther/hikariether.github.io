@@ -19,6 +19,7 @@ sidebar: left
 ![](/mujica/2.png)
 ![](/mujica/1.png)
 ![](/mujica/mujica.jpg)
+<center>狂乱木曜日 北京时间22:00准时播出</center>
 <style>
     #date {font-family: "Noto Serif SC"; font-size: 40px}
     #title {font-size: 40px}
