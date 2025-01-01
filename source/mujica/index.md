@@ -7,7 +7,7 @@ sidebar: left
 
 <center id="title"><b>距离「BanG Dream! Ave Mujica」开播还有</b></center>
 <br><br>
-<center><font color=skyblue><b id="date">DD 天 HH 时 MM 分 SS 秒</b></font></center>
+<center><font color=deeppink><b id="date">HH 时 MM 分 SS 秒</b></font></center>
 <br>
 <center>
 <iframe src="//player.bilibili.com/player.html?isOutside=true&bvid=BV1ZtzsYMEfA&muted=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" height="513" width="915"></iframe>
@@ -38,6 +38,6 @@ sidebar: left
         m = m < 10 ? '0' + m : m;
         var s = parseInt(times % 60);
         s = s < 10 ? '0' + s : s;
-        date.innerHTML = d + ' 天 ' + h + ' 时 ' + m + ' 分 ' + s + ' 秒 ';
+        date.innerHTML = h + ' 时 ' + m + ' 分 ' + s + ' 秒 ';
     }
 </script>
