@@ -38,6 +38,14 @@ hexo.extend.filter.register("stylus:renderer", (style) => {
   postHasSponsor = postHasSponsor || hexo.theme.config.sponsor.enable;
   postHasCopyright =
     postHasCopyright || hexo.theme.config.article_copyright.enable;
+  
+  // sidebar
+  let postHasSidebar = false;
+  hexo.locals.get("posts").forEach((post) => {
+    if (post.sidebar) {
+      postHasSidebar = true;
+    }
+  });
 
   // widgets
   const widgetConfig = hexo.theme.config.widgets;
@@ -45,6 +53,7 @@ hexo.extend.filter.register("stylus:renderer", (style) => {
 
   // social keys
   const socialKeys = Object.keys(hexo.theme.config.social || {});
+  const shareKeys = hexo.theme.config.share || [];
 
   // custom icons
   const footerIcon =
@@ -52,6 +61,24 @@ hexo.extend.filter.register("stylus:renderer", (style) => {
   const sponsorIcon =
     hexo.theme.config.sponsor.icon.url || "../images/taichi.png";
   const topIcon = hexo.theme.config.top.icon.url || "../images/taichi.png";
+
+  // reimu_cursor
+  // just for compatible
+  const cursor = hexo.theme.config.reimu_cursor;
+  let cursorEnabled = true;
+  let cursorDefault = "../images/cursor/reimu-cursor-default.png";
+  let cursorPointer = "../images/cursor/reimu-cursor-pointer.png";
+  let cursorText = "../images/cursor/reimu-cursor-text.png";
+  if (typeof cursor === "boolean") {
+    // old config
+    cursorEnabled = cursor;
+  } else if (typeof cursor === "object") {
+    // new config
+    cursorEnabled = cursor.enable;
+    cursorDefault = cursor.cursor.default || cursorDefault;
+    cursorPointer = cursor.cursor.pointer || cursorPointer;
+    cursorText = cursor.cursor.text || cursorText;
+  }
 
   style
     .define(
@@ -73,9 +100,16 @@ hexo.extend.filter.register("stylus:renderer", (style) => {
     )
     .define("post-has-sponsor", postHasSponsor)
     .define("post-has-copyright", postHasCopyright)
+    .define("post-has-sidebar", postHasSidebar)
     .define("site-has-widget", siteHasWidget)
+    .define("site-has-share", shareKeys.length > 0)
     .define("social-keys", socialKeys)
+    .define("share-keys", shareKeys)
     .define("footer-icon", footerIcon)
     .define("sponsor-icon", sponsorIcon)
-    .define("top-icon", topIcon);
+    .define("top-icon", topIcon)
+    .define("cursor-enabled", cursorEnabled)
+    .define("cursor-default", cursorDefault)
+    .define("cursor-pointer", cursorPointer)
+    .define("cursor-text", cursorText);
 });

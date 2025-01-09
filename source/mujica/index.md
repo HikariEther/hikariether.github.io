@@ -2,6 +2,7 @@
 title: " "
 date: 2025-1-2
 cover: /mujica/logo.png
+sidebar: false
 ---
 
 <center><b>第一集</b></center>
