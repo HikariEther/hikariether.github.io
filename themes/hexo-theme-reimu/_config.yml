@@ -14,12 +14,6 @@ menu:
   - name: about
     url: /about
     icon:
-  - name: friend
-    url: /friend
-    icon:
-  - name: Ave Mujica
-    url: /mujica
-    icon: 
 
 banner: "/images/banner.webp" # which means themes/reimu/source/images/banner.webp
 # You can also write it in the form of the following url
