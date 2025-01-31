@@ -7,7 +7,7 @@ Bilibili: [UID409573857](https://space.bilibili.com/409573857)
 Bangumi: [806784](https://bgm.tv/user/806784)
 
 小哥，我建了群，947606727，邀请你来。
-调查问卷：[网页](https://kaoshi.wjx.top/vm/mFxzwOA.aspx) [文件](/about/蚌埠六中ACGN相关知识与信息技术素养调研问卷（开卷）.pdf)
+调查问卷：[网页](https://kaoshi.wjx.top/vm/mFxzwOA.aspx) [文件](/about/exam.pdf)
 ![](/about/group.png)
 
 个人链接：
