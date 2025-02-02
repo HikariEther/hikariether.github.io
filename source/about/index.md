@@ -11,7 +11,7 @@ Bangumi: [806784](https://bgm.tv/user/806784)
 ![](/about/group.png)
 
 个人链接：
-动画观看：https://video.u422487.nyat.app:41330/
+动画观看：https://video.u422487.nyat.app:55867/
 (只有博主电脑开启时才可访问，且新番基本部署在性能不佳的NAS，做种时无法访问)
 <style>
     p {font-size: 14pt;}
