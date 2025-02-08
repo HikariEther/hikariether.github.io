@@ -16,7 +16,7 @@ date: 2025/2/13
 </style>
 <script>
 var domain = document.domain;
-alert(domain);
+//alert(domain);
 if(domain == "hikariether.github.io")
     document.getElementById("form").action = "../2025/02/12/diary/";
 else
