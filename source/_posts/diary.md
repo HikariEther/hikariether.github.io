@@ -13,6 +13,6 @@ date: 2025/2/13
 //SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT//SCRIPT
 var url = window.location.href;
 var param = url.split("?");
-if (param[1] != "pw=Hikari_Clarus") window.location.replace("../../../../diary");
+if (param[1] != "pw=Hikari_Clarus203") window.location.replace("../../../../diary");
 //alert(param[1]);
 </script>
