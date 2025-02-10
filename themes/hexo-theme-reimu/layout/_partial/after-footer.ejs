@@ -68,32 +68,33 @@
         const src = script.getAttribute('src');
 
         const loadScript = (scriptContent) => {
-          const scriptElement = document.createElement('script');
-          if (script.type) {
-            scriptElement.type = script.type;
-          }
-          scriptElement.text = scriptContent;
-          document.head.appendChild(scriptElement);
-          loadScripts(scripts, index + 1);
+          return new Promise((resolve, reject) => {
+            const scriptElement = document.createElement('script');
+            if (script.type) {
+              scriptElement.type = script.type;
+            }
+            if (script.src) {
+              scriptElement.src = script.src;
+              scriptElement.onload = resolve;
+              scriptElement.onerror = reject;
+            }
+            if (scriptContent) {
+              scriptElement.text = scriptContent;
+            }
+            document.head.appendChild(scriptElement);
+            if (!script.src) {
+              resolve();
+            }
+          })
+          
         }
 
-        if (src) {
-          fetch(src)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-              }
-              return response.text();
-            })
-            .then(scriptContent => {
-              loadScript(scriptContent);
-            })
-            .catch(error => {
-              console.error('Failed to load script:', src, error);
-            });
-        } else {
-          loadScript(script.text);
-        }
+        (src ? loadScript() : loadScript(script.text))
+          .then(() => loadScripts(scripts, index + 1))
+          .catch(error => {
+            console.error(`Failed to load script: ${src || 'inline script'}`, error);
+            loadScripts(scripts, index + 1);
+          });
       }
     }
     window.Pjax && new window.Pjax({
@@ -183,6 +184,7 @@
     <% } %>   
     <% if (theme.mermaid.enable && page.mermaid) { %>
       <%- js({src: vendorCdn(theme.vendor.js.mermaid)[0], integrity: vendorCdnIntegrity(theme.vendor.js.mermaid)[0], crossorigin: "anonymous", 'data-pjax': true}) %>
+      <%- js({src: vendorCdn(theme.vendor.js.dompurify)[0], integrity: vendorCdnIntegrity(theme.vendor.js.dompurify)[0], crossorigin: "anonymous"}) %>
       <script data-pjax>
         if (window.mermaid) {
           // https://github.com/mermaid-js/mermaid/issues/1945
@@ -214,7 +216,7 @@
                 els.forEach(element => {
                   if(element.getAttribute('data-original-code') != null){
                     element.removeAttribute('data-processed')
-                    element.innerHTML = element.getAttribute('data-original-code')
+                    element.innerHTML = DOMPurify.sanitize(element.getAttribute('data-original-code'))
                   }
                   count--
                   if(count == 0){
@@ -322,7 +324,7 @@
 <% if (theme.math.enable) { %>
   <% if (theme.math.katex.enable && theme.math.katex.autoRender) { %>
     <%- js({src: vendorCdn(theme.vendor.js.katex)[0], integrity: vendorCdnIntegrity(theme.vendor.js.katex)[0], crossorigin: "anonymous", defer: true, 'data-pjax': true}) %>
-    <%- js({src: vendorCdn(theme.vendor.js.katex_auto_render)[0], integrity: vendorCdnIntegrity(theme.vendor.js.katex_auto_render)[0], crossorigin: "anonymous", defer: true, onload: "renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});", 'data-pjax': true}) %>
+    <%- js({src: vendorCdn(theme.vendor.js.katex_auto_render)[0], integrity: vendorCdnIntegrity(theme.vendor.js.katex_auto_render)[0], crossorigin: "anonymous", defer: true, onload: "renderMathInElement(_$('article'), {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});", 'data-pjax': true}) %>
   <% } else if (theme.math.mathjax.enable) { %>
     <%- js({src: vendorCdn(theme.vendor.js.mathjax)[0], integrity: vendorCdnIntegrity(theme.vendor.js.mathjax)[0], crossorigin: "anonymous", defer: true, 'data-pjax': true}) %>
     <script data-pjax>

@@ -17,6 +17,9 @@
 
 ---
 
+> [!WARNING]
+> v1.0.0 以下版本已经废弃，请尽快升级到 v1.0.0 以上版本
+
 本人是车车人，所以制作了这样一款博丽灵梦风格的 Hexo 主题，融合了 [landscape](https://github.com/hexojs/hexo-theme-landscape)、[Tangyuxian](https://github.com/tangyuxian/hexo-theme-tangyuxian) 和 [Shoka](https://github.com/amehime/hexo-theme-shoka) 三个主题
 
 |framework|repository|version|stars|
@@ -29,33 +32,58 @@
 
 ## 特性
 
-- 所有的博客常规功能
-- 兼容 Hexo v6+
-- 响应式布局
-- 代码高亮，代码粘贴
-- KaTeX / MathJax3 展示数学公式
-- Mermaid 展示流程图
-- Algolia / hexo-generator-search 搜索
-- valine / waline / twikoo / gitalk / giscus 评论系统
-- valine / waline 文章阅读统计
-- 不蒜子访客统计
-- RSS
-- 同时支持 iconfont 和 fontawesome
-- 黑夜模式
-- 图片懒加载
-- 加载动画
-- TOC
-- 鼠标动画
-- pjax
-- ServiceWorker
-- live2d / live2d-widgets
-- reimu 鼠标指针
-- 内部提供内链/外链/友链卡片的标签插件
-- 文章底部版权声明
-- 配置自定义 CDN 源
-- Aplayer / Meting 音乐播放器
-- 分享卡片
-- 高度自定义
+### 基础功能
+- ✨ 完整的博客功能
+- 🔄 兼容 Hexo6 及以上版本
+- 📱 响应式布局
+- 🌙 暗黑模式支持
+
+### 代码与数学
+- 🖥️ 代码高亮与复制
+- ➗ KaTeX / MathJax3 数学公式支持
+- 📊 Mermaid 流程图支持
+
+### 搜索与评论
+- 🔍 Algolia 搜索集成
+- 💬 多评论系统支持：
+  - Valine
+  - Waline
+  - Twikoo
+  - Gitalk
+  - Giscus
+
+### 统计与分析
+- 📊 文章阅读统计（Valine / Waline）
+- 👥 访客统计（不蒜子）
+
+### 媒体与交互功能
+- 🎵 音乐播放器支持：
+  - Aplayer
+  - Meting
+- 🖼️ 图片懒加载
+- ⚡ 加载动画
+- 🖱️ 鼠标特效：
+  - 动画效果
+  - 灵梦鼠标指针
+- 👾 Live2D / Live2D-widgets 集成
+
+### 导航与结构
+- 📑 目录导航（TOC）
+- 🔄 PJAX 支持
+- 🔧 ServiceWorker 实现
+- 📰 RSS 订阅
+
+### 设计与自定义
+- 🎨 图标支持：
+  - Iconfont
+  - FontAwesome
+- 🔗 内置标签插件：
+  - 内部链接
+  - 外部链接
+  - 友情链接
+- ©️ 文章版权声明
+- 🌐 自定义 CDN 源配置
+- 🎨 分享卡片功能
 
 ## 安装
 
@@ -281,7 +309,8 @@ twikoo:
   region:
 ```
 
-若基于 [giscus](https://giscus.app/zh-CN)，请参考文档完成仓库的配置，并在内层 `_config.yml` 中将 `giscus.enable` 改为 `true`，并填入对应的数据
+若基于 [giscus](https://giscus.app/zh-CN)  
+请参考文档完成仓库的配置，并在内层 `_config.yml` 中将 `giscus.enable` 改为 `true`，并填入对应的数据
 
 ```yml
 giscus:
@@ -438,9 +467,9 @@ markdown_it_plus:
 
 </details>
 <details>
-<summary>Mermaid</summary>
+<summary>Mermaid 流程图</summary>
 
-### Mermaid
+### Mermaid 流程图
 
 请安装 [hexo-filter-mermaid-diagrams](https://github.com/webappdevelp/hexo-filter-mermaid-diagrams)
 
@@ -525,7 +554,7 @@ pace:
   enable: true
 ```
 
-#### firework
+#### Firework 鼠标特效
 
 默认开启
 
@@ -536,7 +565,7 @@ firework:
 
 具体配置请查看 [mouse-firework](https://github.com/D-Sketon/mouse-firework)
 
-#### pjax
+#### PJAX
 
 默认关闭
 
@@ -545,7 +574,9 @@ pjax:
   enable: false
 ```
 
-> pjax 在 v0.0.10 中被引入，用于那些需要添加音乐播放器等需要 SPA 的用户。经过一段时间的迭代后已基本上稳定，但引入后仍然可能会出现诸如**脚本无法执行**、**脚本重复执行**、**页面渲染混乱**等 BUG。请慎重考虑！
+> PJAX 在 v0.0.10 中被引入，用于那些需要添加音乐播放器等需要 SPA 的用户。经过一段时间的迭代后已基本上稳定，但引入后仍然可能会出现诸如**脚本无法执行**、**脚本重复执行**、**页面渲染混乱**等 BUG。请慎重考虑！
+
+> PJAX 无法与 `relative_link: true` 配合使用！
 
 #### ServiceWorker
 
@@ -556,7 +587,7 @@ service_worker:
   enable: false
 ```
 
-#### live2d
+#### Live2D
 
 默认关闭
 
@@ -566,7 +597,7 @@ live2d:
   position: left # left | right
 ```
 
-#### live2d-widgets
+#### Live2D Widgets
 
 默认关闭
 
@@ -576,7 +607,7 @@ live2d_widgets:
   position: left # left | right
 ```
 
-#### reimu 鼠标指针
+#### Reimu 鼠标指针
 
 默认开启
 
@@ -589,7 +620,7 @@ reimu_cursor:
     text: ../images/cursor/reimu-cursor-text.png
 ```
 
-#### 头图响应式（v0.2.0+）
+#### 响应式头图（v0.2.0+）
 
 默认关闭，打开后并提供对应尺寸的图片和媒体查询可以在一定程度上提高移动端的 LCP
 ```yml
@@ -604,7 +635,7 @@ srcset:
     media: "(min-width: 800px)"
 ```
 
-#### quicklink（v0.2.3+）
+#### Quicklink（v0.2.3+）
 
 默认关闭，打开后可以在用户停留在页面时预加载链接，提高用户体验
 ```yml
@@ -638,7 +669,7 @@ copyright: true # 是否展示版权卡片？
 ---
 ```
 
-#### 过期提醒（v0.2.4+）
+#### 文章过期提醒（v0.2.4+）
 
 默认关闭
 ```yml
@@ -675,7 +706,7 @@ sponsor: true # 是否展示赞助二维码？
 #### 首页目录卡片（v1.0.0+）
 
 默认关闭，打开后可以在首页展示目录卡片，用于代替 widget 中的目录
-```yml
+```yaml
 home_categories:
   enable: false # 是否展示首页目录卡片？
   content:
@@ -689,7 +720,7 @@ home_categories:
 
 > 使用前建议先打开 Pjax，否则会出现播放器自动暂停的问题
 
-使用Aplayer + Meting（可选）默认关闭
+使用 Aplayer + Meting（可选）默认关闭
 
 ##### 纯Aplayer
 
@@ -739,7 +770,7 @@ player:
       auto:
 ```
 
-#### 分享（v1.3.0+）
+#### 分享链接/卡片（v1.3.0+）
 
 默认关闭，目前支持 `facebook`、`twitter`、`linkedin`、`reddit`、`weibo`、`qq`、`weixin`。
 
@@ -759,9 +790,9 @@ share:
 </details>
 
 <details>
-<summary>内置卡片Tag</summary>
+<summary>内置卡片标签插件</summary>
 
-### 内置卡片Tag
+### 内置卡片标签插件
 
 #### friendLink 友链卡片
 
@@ -951,18 +982,34 @@ reimu_cursor:
 
 ### Vendor
 
-v0.1.0 对 `vendor` 进行了较大程度的重构，目前 `vendor` 路径的组成方式为：`:cdn|:package@:version/:file`，`:cdn`可在 `vendor` 中自行配置。目前自带以下 CDN 源：
+`vendor` 用于存放一些第三方资源，如 fontawesome、iconfont、katex、mathjax 等。
+
+hexo-theme-reimu 的 `vendor` 结构非常灵活，其支持以下几种形式：
+
+- `:cdn|:package@:version/:file`：使用 CDN 加速，如 `cdn_jsdelivr_gh|katex@0.13.11/dist/katex.min.css`，`:cdn`可在 `vendor` 中自行配置。目前自带以下 CDN 源：
+  ```yaml
+  cdn_jsdelivr_gh: https://cdn.jsdelivr.net/gh/ # 仅针对github加速
+  cdn_jsdelivr_npm: https://cdn.jsdelivr.net/npm/ # 仅针对npm加速
+  fastly_jsdelivr_gh: https://fastly.jsdelivr.net/gh/ # 仅针对github加速
+  fastly_jsdelivr_npm: https://fastly.jsdelivr.net/npm/ # 仅针对npm加速
+  unpkg: https://unpkg.com/ # 仅针对npm加速
+  webcache: https://npm.webcache.cn/ # 仅针对npm加速
+  ```
+  用户可根据网络状况自行切换 CDN 源。
+- `https://` 开头：直接使用绝对链接，如 `https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css` 
+- `/` 开头：本地资源，你可以把资源放在 `source` 文件夹下和 `_posts` 同级，然后使用诸如 `/katex.min.css` 的路径引用
+
+此外，`vendor` 还支持 SRI 校验，你可以在 `vendor` 中使用 `SHA-384` 用于校验资源的完整性，如：
 
 ```yaml
-cdn_jsdelivr_gh: https://cdn.jsdelivr.net/gh/ # 仅针对github加速
-cdn_jsdelivr_npm: https://cdn.jsdelivr.net/npm/ # 仅针对npm加速
-fastly_jsdelivr_gh: https://fastly.jsdelivr.net/gh/ # 仅针对github加速
-fastly_jsdelivr_npm: https://fastly.jsdelivr.net/npm/ # 仅针对npm加速
-unpkg: https://unpkg.com/ # 仅针对npm加速
-webcache: https://npm.webcache.cn/ # 仅针对npm加速
+js:
+  clipboard: # 使用 SRI 校验
+    src: webcache|clipboard@2.0.11/dist/clipboard.min.js
+    integrity: sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q
+  lazysizes: webcache|lazysizes@5.3.2/lazysizes.min.js # 不使用 SRI 校验
 ```
 
-用户可根据网络状况自行切换 CDN 源。
+以上两种形式均支持，建议对外部 CDN 资源使用 SRI 校验，以确保资源的完整性。
 </details>
 
 ## 贡献者
@@ -971,4 +1018,4 @@ webcache: https://npm.webcache.cn/ # 仅针对npm加速
 
 ## 许可
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FD-Sketon%2Fhexo-theme-reimu.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FD-Sketon%2Fhexo-theme-reimu?ref=badge_large)
+MIT
