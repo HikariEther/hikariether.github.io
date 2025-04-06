@@ -5,7 +5,7 @@
         <% if (content.categories) { %>
         <div class="post-categories-wrap">
           <% let c = parseHomeCategories(content.categories); %>
-          <a class="post-link" href="<%= url_for(c.url, {relative: false}) %>" aria-label=""></a>
+          <a class="post-link" href="<%= url_for_lang(c.url, {relative: false}) %>" aria-label=""></a>
           <div class="post-categories-cover">
             <% if (content.cover) { %>
               <img data-src="<%- url_for(content.cover, {relative: false}) %>" data-sizes="auto" alt="<%= c.name %>" class="lazyload">
@@ -25,44 +25,69 @@
       <% } %>
     </div>
   <% } %>
-  <% page.posts.each((post, i) => { %>
-    <%- partial('post', {post: post, even: i % 2 === 0}) %>
-  <% }) %>
+  <% if (page.lang) { %>
+    <% let i = 0; %>
+    <% for (const post of get_posts_by_lang(page.posts, page.lang)) { %>
+      <%- partial('post', {post: post, even: i % 2 === 0}) %>
+      <% i++; %>
+    <% } %>
+  <% } else { %>
+    <% page.posts.forEach((post, i) => { %>
+      <%- partial('post', {post: post, even: i % 2 === 0}) %>
+    <% }) %>
+  <% } %>
 <% } else { %>
 <div class="archives-outer-wrap" data-aos="<%= theme.animation.options.archive.whole %>">
-  <div class="tag-wrap">
-    <% site.tags.each((tag, i) => { %>
-      <div class="archives-tag-list-item" data-aos="<%= theme.animation.options.archive.tag %>">
-        <a class="archives-tag-list-link" href="<%- url_for(tag.path) %>"><%= tag.name %></a>
-      </div>
-    <% }) %>
-  </div>
-  <div class="category-wrap">
-    <% site.categories.each((cagetory, i) => { %>
-      <div class="archives-category-list-item" data-aos="<%= theme.animation.options.archive.category %>">
-        <a class="archives-category-list-link" href="<%- url_for(cagetory.path) %>"><%= cagetory.name %></a>
-      </div>
-    <% }) %>
-  </div>
-  <% var last; %>
-  <% page.posts.each((post, i) => { %>
-    <% var year = post.date.year(); %>
-    <% if (last != year) { %>
-      <% if (last != null) { %>
+  <% if (is_category() || is_tag()) { %>
+    <% if (!theme.only_show_capsule_in_index) { %>
+      <%- partial_lang('post/archives', null, { cache: !config.relative_link, lang: page.lang }) %>
+    <% } %>
+  <% } else { %>
+    <%- partial_lang('post/archives', null, { cache: !config.relative_link, lang: page.lang }) %>
+  <% } %>
+  <% if (page.lang) { %>
+    <% const posts = get_posts_by_lang(page.posts, page.lang); %>
+    <% var last; %>
+    <% posts.forEach((post, i) => { %>
+      <% var year = post.date.year(); %>
+      <% if (last != year) { %>
+        <% if (last != null) { %>
+          </section>
+        <% } %>
+        <% last = year; %>
+        <section class="archives-wrap" data-aos="<%= theme.animation.options.archive.section %>">
+          <div class="archive-year-wrap">
+            <a href="<%- url_for_lang(config.archive_dir + '/' + year) %>" class="archive-year"><%= year %></a>
+          </div>
+          <ul>
+            <% } %>
+            <%- partial('archive-post', {post: post}) %>
+            <% }) %>
+            <% if (page.posts.length) { %>
+          </ul>
         </section>
-      <% } %>
-      <% last = year; %>
-      <section class="archives-wrap" data-aos="<%= theme.animation.options.archive.section %>">
-        <div class="archive-year-wrap">
-          <a href="<%- url_for(config.archive_dir + '/' + year) %>" class="archive-year"><%= year %></a>
-        </div>
-        <ul>
-          <% } %>
-          <%- partial('archive-post', {post: post}) %>
-          <% }) %>
-          <% if (page.posts.length) { %>
-        </ul>
-      </section>
+    <% } %>
+  <% } else { %>
+    <% var last; %>
+    <% page.posts.each((post, i) => { %>
+      <% var year = post.date.year(); %>
+      <% if (last != year) { %>
+        <% if (last != null) { %>
+          </section>
+        <% } %>
+        <% last = year; %>
+        <section class="archives-wrap" data-aos="<%= theme.animation.options.archive.section %>">
+          <div class="archive-year-wrap">
+            <a href="<%- url_for_lang(config.archive_dir + '/' + year) %>" class="archive-year"><%= year %></a>
+          </div>
+          <ul>
+            <% } %>
+            <%- partial('archive-post', {post: post}) %>
+            <% }) %>
+            <% if (page.posts.length) { %>
+          </ul>
+        </section>
+    <% } %>
   <% } %>
   </div>
 <% } %>

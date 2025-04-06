@@ -1,8 +1,11 @@
 <head>
+  <% if (theme.injector.head_begin) { %>
+    <%- render(theme.injector.head_begin, 'html'); %>
+  <% } %>
   <meta charset="utf-8">
-  <%- partial('analytics/google-analytics') %>
-  <%- partial('analytics/clarity') %>
-  <%- partial('analytics/baidu-analytics') %>
+  <%- partial('analytics/google-analytics', null, { cache: true }) %>
+  <%- partial('analytics/clarity', null, { cache: true }) %>
+  <%- partial('analytics/baidu-analytics', null, { cache: true }) %>
   <%- themeConfig() %>
   <%
     let title = page.title;
@@ -79,5 +82,8 @@
   <% } %>
   <% if (theme.player.aplayer.enable) { %>
     <%- css(vendorCdn(theme.vendor.css.aplayer)) %>
+  <% } %>
+  <% if (theme.injector.head_end) { %>
+    <%- render(theme.injector.head_end, 'html'); %>
   <% } %>
 </head>

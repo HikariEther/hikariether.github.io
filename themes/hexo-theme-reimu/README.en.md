@@ -38,6 +38,7 @@ A combination of [landscape](https://github.com/hexojs/hexo-theme-landscape)、[
 - 🔄 Compatible with Hexo6+
 - 📱 Responsive layout
 - 🌙 Dark mode support
+- 🅰️ i18n support
 
 ### Code & Math
 - 🖥️ Code highlighting and copying
@@ -46,6 +47,7 @@ A combination of [landscape](https://github.com/hexojs/hexo-theme-landscape)、[
 
 ### Search & Comments
 - 🔍 Algolia search integration
+- 🔍 Local search integration
 - 💬 Multiple comment systems support:
   - Valine
   - Waline
@@ -82,6 +84,9 @@ A combination of [landscape](https://github.com/hexojs/hexo-theme-landscape)、[
   - Internal links
   - External links
   - Friend links
+  - Heatmap
+- 🎨 Dynamic theme color adaptation
+- 🎨 Custom Containers
 - ©️ Article copyright declaration
 - 🌐 Custom CDN source configuration
 - 🎨 Share card functionality
@@ -263,6 +268,16 @@ code_block:
 > Site comments can be individually controlled for each article using `comments` in the Front matter.  
 > When `comments` is `false`, comments won't be displayed. When it's `true` or not specified, the display will be determined by the `_config.yml` configuration.
 
+> Support for multiple comment systems simultaneously after version 1.7.0+
+
+Global comment system configuration:
+
+```yaml
+comment:
+  title: Say something! # Title of the comment box  
+  default: waline # Default comment system used when multiple are enabled
+```
+
 If using [Valine](https://valine.js.org/)  
 Please refer to their official documentation to complete the `LeanCloud` configuration, then set `valine.enable` to `true` in the inner `_config.yml` and fill in your `appId` and `appKey`
 
@@ -349,13 +364,15 @@ gitalk:
 
 ### Site search
 
-If choosing [Algolia](https://www.algolia.com/), please install [hexo-algoliasearch](https://github.com/LouisBarranqueiro/hexo-algoliasearch)
+If choosing [Algolia](https://www.algolia.com/), please install [@reimujs/hexo-algoliasearch](https://github.com/D-Sketon/hexo-algoliasearch)
 
 ```bash
-npm install hexo-algoliasearch --save
+npm install @reimujs/hexo-algoliasearch --save
 ```
 
-Then refer to its [README](https://github.com/LouisBarranqueiro/hexo-algoliasearch#readme) to complete the `Algolia` account configuration, and add the following configuration to the outer `_config.yml`
+Then refer to its [README](https://github.com/D-Sketon/hexo-algoliasearch#readme) to complete the `Algolia` account configuration, and add the following configuration to the outer `_config.yml`
+
+> Note: The search redirect link is a permanent link, so please ensure the `url` in the outer `_config.yml` is filled in correctly.
 
 ```yml
 algolia:
@@ -382,24 +399,15 @@ algolia_search:
   enable: true
 ```
 
-Note: The search redirect link is a permanent link, so please ensure the `url` in the outer `_config.yml` is filled in correctly.
+> After version 1.5.0, the theme has built-in `hexo-generator-search`, so there is no need to install `hexo-generator-search` separately.
 
-If choosing [hexo-generator-search](https://github.com/wzpan/hexo-generator-search), please install [hexo-generator-search](https://github.com/wzpan/hexo-generator-search)
-
-And refer to its [README](https://github.com/wzpan/hexo-generator-search#readme) to add the following configuration to the outer `_config.yml`
-
-```yml
-search:
-  path: search.json # The filename must be search.json
-  field: post
-  content: true
-```
-
-In the inner `_config.yml`, set `generator_search.enable` to `true`
+This theme comes with `hexo-generator-search` built-in. If you choose to use local search, please set `generator_search.enable` to `true` in the inner `_config.yml`. For other configurations, refer to [hexo-generator-search](https://github.com/wzpan/hexo-generator-search).
 
 ```yaml
 generator_search:
   enable: true
+  field: post
+  content: true
 ```
 
 </details>
@@ -518,14 +526,51 @@ rss: atom.xml
 </details>
 
 <details>
+<summary>i18n</summary>
+
+### i18n
+
+This theme provides four languages by default: `en`, `zh-CN`, `zh-TW`, and `ja`. You can switch the language by modifying the `language` in the outer `_config.yml`.
+
+```yaml
+language: zh-CN
+```
+
+> The following is an experimental feature and may contain bugs.
+
+v1.4.0+ experimentally introduced `hexo-generator-i18n` and added multi-language switching functionality. You can configure `i18n` in the inner `_config.yml` to add custom languages. The configuration can be referenced from [hexo-generator-i18n](https://github.com/Jamling/hexo-generator-i18n):
+
+```yaml
+i18n:
+  enable: false # false | true
+  type: [page, post]
+  generator: [archive, category, tag, index]
+  languages: [zh-CN, en] # List of languages, the first one is the default language
+```
+
+For multilingual support in posts, you can add `lang` in the Front-matter to specify languages **other than the default language** (the default language does not need to be added).
+
+```yaml
+lang: en
+```
+
+The above will generate a page at `/en/:permalink`.
+
+For multilingual support in pages, you can directly create a folder for the corresponding language in the `source` directory and place an `index.md` file inside it, such as `source/en/about/index.md`. This will generate a page at `/en/about`.
+
+For more information, please refer to [How to add multi-language support to Hexo](https://d-sketon.github.io/en/20250223/hexo-theme-reimu-i18n/)
+
+</details>
+
+<details>
 <summary>Icon</summary>
 
 ### Icon
 
-By default, this project uses its own provided iconfont (v0.1.3+)
+By default, this theme uses its own provided iconfont (v0.1.3+)
 
 ```yml
-icon_font: 4552607_bq08450reo
+icon_font: 4552607_0khxww3tj3q9
 ```
 
 If you want to continue using fontawesome icons, set `icon_font` to `false`. This will use the corresponding fontawesome from the `vendor`
@@ -544,9 +589,21 @@ fontawesome:
 </details>
 
 <details>
-<summary>Advanced features</summary>
+<summary>Extended features</summary>
 
-### Advanced features
+### Extended features
+
+#### Dark Mode
+
+The default setting is `auto`, which automatically switches based on the user's system settings. It can be set to `true` or `false` to change the default state.
+
+```yaml
+dark_mode:
+  # true means that the dark mode is enabled by default
+  # false means that the dark mode is disabled by default
+  # auto means that the dark mode is automatically switched according to the system settings
+  enable: auto # true | false | auto
+```
 
 #### Pace Progress Bar
 
@@ -749,6 +806,7 @@ player:
       volume:
       mutex:
       listFolded:
+      lrcType:
 ```
 
 ##### Aplayer + Meting
@@ -769,6 +827,7 @@ player:
       volume:
       mutex:
       listFolded:
+      lrcType:
   meting:
     enable: true
     meting_api: # custom api
@@ -830,6 +889,56 @@ The first parameter is the article's `slug`; the second parameter (optional) is 
 
 The first parameter is the article title; the second parameter is the external link to the article; the third parameter (optional) is the cover image displayed on the card, if set to `auto` it will automatically use the default cover
 
+#### Heat Map Card Article Heatmap (Experimental Feature in v1.7.0+)
+
+```yaml
+{% heatMapCard levelStandard %}
+```
+
+The first parameter is the level standard for the heatmap (graded based on the word count of the articles), with the default value being `"1000,5000,10000"`. 
+
+</details>
+
+<details>
+<summary>Custom Containers</summary>
+
+### Custom Containers
+
+This theme provides custom container functionality similar to Vitepress. Before using it, you need to install [@reimujs/hexo-renderer-markdown-it-plus](https://github.com/D-Sketon/hexo-renderer-markdown-it-plus) and set `markdown.container` to `true` in the inner `_config.yml`.
+
+```yaml
+markdown:
+  container: true
+```
+
+Usage is as follows:
+
+```markdown
+::: info
+This is an info box.
+:::
+
+::: tip
+This is a tip.
+:::
+
+::: warning
+This is a warning.
+:::
+
+::: danger
+This is a dangerous warning.
+:::
+
+::: danger STOP
+Danger zone, do not proceed
+:::
+
+::: details
+This is a details block.
+:::
+```
+
 </details>
 
 <details>
@@ -837,7 +946,18 @@ The first parameter is the article title; the second parameter is the external l
 
 The hexo-theme-reimu theme supports extensive customization. You can customize your theme by modifying `_config.yml`.
 
-#### Customize Theme Colors
+#### Dynamic Theme Color Adaptation (Experimental Feature in v1.7.0+)
+
+Disabled by default. When enabled, it dynamically generates theme colors based on the dominant color of the article's banner image, following Google's Material You design guidelines.
+
+```yml
+material_theme:
+  enable: false # true | false
+```
+
+> Note: When this feature is enabled, the `crossorigin="anonymous"` attribute will be added to the `img` element of the banner to fetch the dominant color of the image. Please ensure your image server supports cross-origin access or use a third-party image proxy.
+
+#### Manual Customizing Theme Colors
 
 The hexo-theme-reimu theme supports theme color customization through CSS variables. You can customize your theme colors by modifying CSS variables under the `:root` pseudo-class.
 

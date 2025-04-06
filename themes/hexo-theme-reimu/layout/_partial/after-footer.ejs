@@ -1,6 +1,10 @@
 <%- js({ src: vendorCdn(theme.vendor.js.lazysizes)[0], integrity: vendorCdnIntegrity(theme.vendor.js.lazysizes)[0], crossorigin: "anonymous"}) %>
 <%- js({ src: vendorCdn(theme.vendor.js.clipboard)[0], integrity: vendorCdnIntegrity(theme.vendor.js.clipboard)[0], crossorigin: "anonymous"}) %>
 
+<% if (theme.material_theme.enable) { %>
+  <%- js({src: vendorCdn(theme.vendor.js.material_theme)[0], integrity: vendorCdnIntegrity(theme.vendor.js.material_theme)[0], crossorigin: "anonymous"}) %>
+<% } %>
+
 <%- js('js/script.js') %>
 
 <% if (theme.animation.enable) { %>
@@ -89,12 +93,65 @@
           
         }
 
-        (src ? loadScript() : loadScript(script.text))
+        ;(src ? loadScript() : loadScript(script.text))
           .then(() => loadScripts(scripts, index + 1))
           .catch(error => {
             console.error(`Failed to load script: ${src || 'inline script'}`, error);
             loadScripts(scripts, index + 1);
           });
+      }
+    }
+    if (window.Pjax) {
+      Pjax.prototype.getElements = function() {
+        const i18nLanguages = window.REIMU_CONFIG.i18n_languages;
+        const baseUrl = window.REIMU_CONFIG.base;
+        let basePathname = new URL(baseUrl).pathname;
+        if (!basePathname.endsWith('/')) {
+          basePathname += '/';  
+        }
+        const currentUrl = window.location.href;
+        const currentPathname = new URL(currentUrl).pathname.replace(basePathname, '');
+        const aLinks = document.querySelectorAll('a[href]');
+        const pjaxLinks = [];
+        for(let i = 0; i < aLinks.length; i++) {
+          const aLink = aLinks[i];
+          const aLinkHref = aLink.getAttribute('href');
+          const isExternal = aLink.getAttribute('target') === '_blank' || aLink.getAttribute('rel')?.includes('noopener');
+          if (isExternal || aLinkHref.startsWith('mailto:') || aLinkHref.startsWith('tel:') || aLinkHref.startsWith('javascript:') || aLinkHref.startsWith("data:") || aLinkHref.startsWith("vbscript:")) {
+            continue;
+          }
+          if (!i18nLanguages) {
+            // 多语言功能未打开
+            pjaxLinks.push(aLink);
+            continue;
+          }
+
+          const absoluteUrl = new URL(aLinkHref, currentUrl).href;
+          const absolutePathname = new URL(absoluteUrl).pathname.replace(basePathname, '');
+
+          if (!absolutePathname || !currentPathname) {
+            pjaxLinks.push(aLink);
+            continue;
+          }
+
+          const currentLangIndex = i18nLanguages.findIndex(lang => currentPathname.startsWith(lang));
+          if (currentLangIndex > -1) {
+            // 当前属于多语言站点
+            const absoluteLangIndex = i18nLanguages.findIndex(lang => absolutePathname.startsWith(lang));
+            if (absoluteLangIndex === currentLangIndex) {
+              // 同一语言站点，可以使用 pjax
+              pjaxLinks.push(aLink);
+            }
+          } else {
+            // 当前属于默认语言站点
+            const absoluteLangIndex = i18nLanguages.findIndex(lang => absolutePathname.startsWith(lang));
+            if (absoluteLangIndex === -1) {
+              // 同一语言站点，可以使用 pjax
+              pjaxLinks.push(aLink);
+            }
+          }
+        }
+        return pjaxLinks;
       }
     }
     window.Pjax && new window.Pjax({
@@ -109,7 +166,8 @@
         ".sidebar-widget",
         ".sidebar-wrapper",
         '#mobile-nav',
-        '#lazy-script'
+        '#lazy-script',
+        '#i18n-nav'
       ],
       switches: {
         "#content": function(oldEl, newEl) {
@@ -178,7 +236,7 @@
           stripContent: "<%= content %>",
           date: "<%= post.date %>",
           updated: "<%= post.updated %>",
-          cover: "<%- post.cover ? url_for(post.cover, {relative: false}) : url_for(theme.banner, {relative: false}) %>",
+          cover: "<%- post.cover && !post.cover.startsWith('rgb') ? url_for(post.cover, {relative: false}) : url_for(theme.banner, {relative: false}) %>",
         };
       </script>
     <% } %>   
@@ -295,7 +353,9 @@
           window.addEventListener('lightbox:ready', pswp);
         }
       </script>
-      <%- partial('post/comment') %>
+      <% if (page.comments !== false) { %>
+        <%- partial('post/comment', null, { cache: true }) %>
+      <% } %>
     <% } %>
   </div>
 </div>
@@ -338,6 +398,7 @@
   <% if (!theme.player.meting.enable) { %>
     <script>
       const ap = new APlayer({
+        theme: "var(--color-link)",
         container: document.getElementById('aplayer'),
         audio: <%- JSON.stringify(theme.player.aplayer.options.audio) %> || [],
         fixed: <%= JSON.stringify(theme.player.aplayer.options.fixed) %> || false,
@@ -348,6 +409,7 @@
         volume: <%= JSON.stringify(theme.player.aplayer.options.volume) %> || 0.7,
         mutex: <%= JSON.stringify(theme.player.aplayer.options.mutex) %> || true,
         listFolded: <%= JSON.stringify(theme.player.aplayer.options.listFolded) %> || false,
+        lrcType: <%= JSON.stringify(theme.player.aplayer.options.lrcType) %> || 0,
       });
     </script>
   <% } %>
@@ -360,4 +422,17 @@
       var meting_api = "<%= theme.player.meting.meting_api %>";
     </script>
   <% } %>
+<% } %>
+
+<% if (theme.pangu.enable) { %>
+  <%- js({src: vendorCdn(theme.vendor.js.pangu)[0], integrity: vendorCdnIntegrity(theme.vendor.js.pangu)[0], crossorigin: "anonymous", defer: true}) %>
+  <script data-pjax>
+    if (document.readyState === "loading") {
+      document.addEventListener('DOMContentLoaded', () => {
+        pangu?.spacingPage();
+      });
+    } else {
+      pangu?.spacingPage();
+    }
+  </script>
 <% } %>

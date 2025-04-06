@@ -40,6 +40,15 @@ favicon: "/images/favicon.ico" # which means themes/reimu/source/images/favicon.
 
 avatar: "avatar.webp" # which means source/_data/avatar/avatar.webp
 
+# Control the display of the post cover
+# If not set, the banner image will be displayed by default
+# Its priority is lower than the cover in the Front-matter
+cover: # https://example.com / false / rgb(255,117,117)
+
+# Control the display of the post toc
+# Its priority is lower than the toc in the Front-matter
+toc: true
+
 # Open Graph
 # see https://hexo.io/docs/helpers#open-graph
 open_graph:
@@ -59,14 +68,22 @@ excerpt_link: Read More
 
 # RSS
 # need https://github.com/hexojs/hexo-generator-feed
-# rss: atom.xml
+#rss: atom.xml
+
+# a very simple alternative for https://hexo.io/api/injector
+injector:
+  head_begin: # Inject code snippet right after <head>
+  head_end: # Inject code snippet right before </head>
+  body_begin: # Inject code snippet right after <body>
+  body_end: # Inject code snippet right before </body>
+  sidebar_begin: # Inject code snippet right after <aside>
+  sidebar_end: # Inject code snippet right before </aside>
 
 # Footer copyright
-copyright:
+copyright: # Inject code snippet right in the footer copyright
 # Need help choosing? Please see...
 # https://creativecommons.org/choose/
 # https://choosealicense.com/
-# You can use pug like below...
 # copyright: |-
 #   <div style="flex-direction:column;align-items: center;"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
 #   All website licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></div>
@@ -121,7 +138,18 @@ widgets:
 # Widget behavior
 archive_type: "monthly"
 show_count: false
+tag_limits:
 recent_posts_limits: 5
+tagcloud_limits:
+
+# Archive behavior
+only_show_capsule_in_index: false # If you have hugo amounts of tags and categories, you can set this to true to only show the capsule in the index page for better performance
+
+i18n:
+  enable: false
+  type: [page, post]
+  generator: [archive, category, tag, index]
+  languages: [zh-CN, en]
 
 ########################################
 # CSS
@@ -137,13 +165,14 @@ reimu_cursor:
     text: ../images/cursor/reimu-cursor-text.png
 
 # set to false to enable fontawesome
-icon_font: 4552607_bq08450reo
+icon_font: 4552607_0khxww3tj3q9
 
 # https://fonts.google.com/
 # Google Fonts, higher priority than local_font
 font:
   article:
-    - Mulish
+    # - Mulish
+    - Noto Serif
     - Noto Serif SC
   code:
     # - Ubuntu Mono
@@ -164,7 +193,14 @@ local_font:
     - monospace
 
 dark_mode:
-  enable: false # set to true to make your website default to dark mode
+  # true means that the dark mode is enabled by default
+  # false means that the dark mode is disabled by default
+  # auto means that the dark mode is automatically switched according to the system settings
+  enable: auto # true | false | auto
+
+# need https://github.com/D-Sketon/hexo-renderer-markdown-it-plus
+markdown:
+  container: false # whether to enable the container style
 
 ########################################
 # Markdown Display
@@ -225,6 +261,19 @@ clarity: false
 ########################################
 # Comment system
 ########################################
+
+# global control of the comment system
+# you can use multiple comment systems at the same time
+# load order: localStorage(user manually selects) -> default
+# -> valine -> waline -> twikoo -> gitalk -> giscus
+comment:
+  # comment system title
+  title: 说些什么吧！
+  # or with i18n
+  # title: 
+  #   en: Say something!
+  #   zh-CN: 说些什么吧！
+  default: waline # default comment system, when you enable multiple comment systems
 
 # valine comment system. https://valine.js.org
 # version 1.5.1
@@ -302,7 +351,7 @@ giscus:
 # Search
 ########################################
 
-# need https://github.com/LouisBarranqueiro/hexo-algoliasearch
+# need https://github.com/D-Sketon/hexo-algoliasearch
 # please add the following config in your _config.yml
 # algolia:
 #   appId: 'your applicationID'
@@ -328,14 +377,10 @@ algolia_search:
     hits_empty: "未发现与 「${query}」相关内容"
     hits_stats: "找到${hits}条结果（用时 ${time} ms）"
 
-# need https://github.com/wzpan/hexo-generator-search
-# please add the following config in your _config.yml
-# search:
-#   path: search.json # The filename must be search.json
-#   field: post
-#   content: true
 generator_search:
   enable: false
+  field: post
+  content: true
 
 ########################################
 # Animation
@@ -382,7 +427,7 @@ firework:
       - shape: circle
         move: ["emit"]
         easing: easeOutExpo
-        colors: ["#ff5252", "#ff7c7c", "#ffafaf", "#ffd0d0"]
+        colors: ["var(--red-1)", "var(--red-2)", "var(--red-3)", "var(--red-4)"]
         number: 20
         duration: [1200, 1800]
         shapeOptions:
@@ -391,7 +436,7 @@ firework:
       - shape: circle
         move: ["diffuse"]
         easing: easeOutExpo
-        colors: ["#ff0000"]
+        colors: ["var(--red-0)"]
         number: 1
         duration: [1200, 1800]
         shapeOptions:
@@ -532,6 +577,7 @@ player:
       volume:
       mutex:
       listFolded:
+      lrcType:
   meting:
     # https://github.com/metowolf/MetingJS
     # if you want to use meting, please enable aplayer first
@@ -542,6 +588,27 @@ player:
       server: netease
       type: playlist
       auto:
+
+########################################
+# pangu.js
+########################################
+
+pangu:
+  # more information: https://github.com/vinta/pangu.js 
+  enable: true  # enable pangu.js to add space between Chinese and English
+
+########################################
+# Material Theme
+########################################
+
+# experimental, may have a lot of bugs, open with caution!
+# A dynamic color generation tool based on Google's Material You design guidelines, capable of extracting primary colors from any image and generating complete light and dark color schemes.
+material_theme:
+  # more information: https://github.com/2061360308/material-theme
+  # notice: when you enable this feature, all the covers will be automatically added "crossorigin" attribute to support the dynamic color scheme
+  # so make sure your custom covers will not be blocked by the browser's CORS policy
+  enable: false # enable material_theme to generate dynamic color schemes based on the banner image
+
 
 ########################################
 # Vendor
@@ -597,8 +664,8 @@ vendor:
       src: webcache|mermaid@9.4.3/dist/mermaid.min.js
       integrity: sha384-aG3Gai4tbCHF0iXo48HwLoOZyut7mBl50oMC9GD1m75xyHfJDv6w8hD/kZRD47aJ
     firework:
-      src: webcache|mouse-firework@0.1.0/dist/index.umd.js
-      integrity: sha384-KM6i7tu43nYd6e0beIljxHMC5tZc58XBDu7pPA58w50h18Jsx7gLdimfS09RXlKv
+      src: webcache|mouse-firework@0.1.1/dist/index.umd.js
+      integrity: sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d
     pjax:
       src: webcache|theme-shokax-pjax@0.0.3/dist/index.umd.js
       integrity: sha384-xneY1WY8hOfUzswrE4CrYq35N4BdVcxqxwHPr9zawE/jMSCxD+jAPU55x/jj3wlf
@@ -638,11 +705,17 @@ vendor:
     dompurify:
       src: webcache|dompurify@3.2.4/dist/purify.min.js
       integrity: sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu
+    pangu:
+      src: webcache|pangu@4.0.7/dist/browser/pangu.min.js
+      integrity: sha384-HeUHqi0nVsPUm/E0ss7OfnIV/yD96JWB8ehZvUuoVax9DpNHL17jj9pdfXHzqDxm
+    material_theme:
+      src: webcache|material-theme@1.0.0/dist/material-theme.umd.js
+      integrity: sha384-vLev0II0HKFaxkcm+/7kX5IGwVFBASkGchU311wmU/veIj2bB0UcBkQbW6yw2asK
   css:
     photoswipe: webcache|photoswipe@5.4.4/dist/photoswipe.css
     katex: webcache|katex@0.16.11/dist/katex.min.css
     waline: webcache|@waline/client@2.15.8/dist/waline.css
-    gitalk: webcache|gitalk/dist/gitalk.css
+    gitalk: webcache|gitalk@1.8.0/dist/gitalk.css
     fontawesome:
       high_priority:
         - webcache|@fortawesome/fontawesome-free@6.5.1/css/regular.min.css

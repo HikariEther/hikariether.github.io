@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html <% if (config.language) { %>lang="<%- config.language %>" <% } %> <% if (theme.dark_mode.enable) { %>data-theme="dark" <% } %>>
+<html <% if (config.language) { %>lang="<%- config.language %>" <% } %> 
+<% if (theme.dark_mode.enable === true) { %>
+  data-theme-mode="true"
+<% } else if (theme.dark_mode.enable === 'auto') { %>
+  data-theme-mode="auto"
+<% } else if (theme.dark_mode.enable === false) { %>
+  data-theme-mode="false"
+<% } %>
+>
 <%- partial('_partial/head') %>
 <body>
+  <% if (theme.injector.body_begin) { %>
+    <%- render(theme.injector.body_begin, 'html'); %>
+  <% } %>
   <div id="container">
     <div id="wrap">
-      <%- partial('_partial/header', {post: page}, {cache: !config.relative_link}) %>
+      <%- partial('_partial/header', {post: page}) %>
     </div>
   </div>
   <% if (theme.algolia_search.enable || theme.generator_search.enable) { %>
@@ -25,5 +36,8 @@
     </div>
   <% } %>
   <%- partial('_partial/after-footer') %>
+  <% if (theme.injector.body_end) { %>
+    <%- render(theme.injector.body_end, 'html'); %>
+  <% } %>
 </body>
 </html>

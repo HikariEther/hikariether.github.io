@@ -37,6 +37,7 @@
 - 🔄 兼容 Hexo6 及以上版本
 - 📱 响应式布局
 - 🌙 暗黑模式支持
+- 🅰️ i18n 支持
 
 ### 代码与数学
 - 🖥️ 代码高亮与复制
@@ -45,6 +46,7 @@
 
 ### 搜索与评论
 - 🔍 Algolia 搜索集成
+- 🔍 本地搜索集成
 - 💬 多评论系统支持：
   - Valine
   - Waline
@@ -81,6 +83,9 @@
   - 内部链接
   - 外部链接
   - 友情链接
+  - 热力图
+- 🎨 动态适配主题色
+- 🎨 自定义容器
 - ©️ 文章版权声明
 - 🌐 自定义 CDN 源配置
 - 🎨 分享卡片功能
@@ -261,6 +266,16 @@ code_block:
 > 站内评论可以使用 Front matter 中的 `comments` 独立控制每篇文章是否显示评论。  
 > 当 `comments` 为 `false` 时不显示评论，`true` 或不填时根据 `_config.yml` 的配置决定是否显示。
 
+> 1.7.0+ 后支持多评论系统同时使用
+
+全局评论系统配置：
+
+```yaml
+comment:
+  title: 说些什么吧！ # 评论框标题
+  default: waline # 多评论下，默认使用的评论系统
+```
+
 若基于 [Valine](https://valine.js.org/)  
 请参考其官方文档完成 `LeanCloud` 的配置，并在内层 `_config.yml` 中将 `valine.enable` 改为 `true`，并填入自己的 `appId` 和 `appKey`
 
@@ -347,13 +362,15 @@ gitalk:
 
 ### 站内搜索
 
-若选择 [Algolia](https://www.algolia.com/)，请安装 [hexo-algoliasearch](https://github.com/LouisBarranqueiro/hexo-algoliasearch)
+若选择 [Algolia](https://www.algolia.com/)，请安装 [@reimujs/hexo-algoliasearch](https://github.com/D-Sketon/hexo-algoliasearch)
 
 ```bash
-npm install hexo-algoliasearch --save
+npm install @reimujs/hexo-algoliasearch --save
 ```
 
-并参考其 [README](https://github.com/LouisBarranqueiro/hexo-algoliasearch#readme) 完成对 `Algolia` 账号的配置，并在外层 `_config.yml` 中添加如下配置
+并参考其 [README](https://github.com/D-Sketon/hexo-algoliasearch#readme) 完成对 `Algolia` 账号的配置，并在外层 `_config.yml` 中添加如下配置
+
+> 注意：搜索跳转链接为永久链接，所以请保证外层 `_config.yml` 中的 `url` 填写正确
 
 ```yml
 algolia:
@@ -380,24 +397,15 @@ algolia_search:
   enable: true
 ```
 
-注意：搜索跳转链接为永久链接，所以请保证外层 `_config.yml` 中的 `url` 填写正确
+> 1.5.0+ 后主题内置了 `hexo-generator-search`，所以无需再安装 `hexo-generator-search`
 
-若选择 [hexo-generator-search](https://github.com/wzpan/hexo-generator-search)，请安装[hexo-generator-search](https://github.com/wzpan/hexo-generator-search)
-
-并参考其 [README](https://github.com/wzpan/hexo-generator-search#readme)在外层 `_config.yml` 中添加如下配置
-
-```yml
-search:
-  path: search.json # 文件名必须为search.json
-  field: post
-  content: true
-```
-
-在内层 `_config.yml` 中将 `generator_search.enable` 改为 `true`
+本主题内置了 hexo-generator-search，若选择本机搜索，请在内层 `_config.yml` 中将 `generator_search.enable` 改为 `true`，其余配置参考 [hexo-generator-search](https://github.com/wzpan/hexo-generator-search)
 
 ```yaml
 generator_search:
   enable: true
+  field: post
+  content: true
 ```
 
 </details>
@@ -515,14 +523,51 @@ rss: atom.xml
 </details>
 
 <details>
+<summary>i18n</summary>
+
+### i18n
+
+本主题默认提供 `en`、`zh-CN`、`zh-TW` 和 `ja` 四种语言，可以在外层 `_config.yml` 中修改 `language` 来切换语言
+
+```yaml
+language: zh-CN
+```
+
+> 以下为实验性功能，可能会有 BUG
+
+v1.4.0+ 实验性地引入了 `hexo-generator-i18n` 并提供了多语言切换功能，可以在内层 `_config.yml` 中配置 `i18n` 来添加自定义语言，其配置方式可参考 [hexo-generator-i18n](https://github.com/Jamling/hexo-generator-i18n)：
+
+```yaml
+i18n:
+  enable: false # false | true
+  type: [page, post]
+  generator: [archive, category, tag, index]
+  languages: [zh-CN, en] # 语言列表，第一个为默认语言
+```
+
+对于 post 的多语言支持，可以在 Front-matter 中添加 `lang` 来指定**除默认语言外的**其他语言（默认语言不需要添加）
+
+```yaml
+lang: en
+```
+
+以上会生成 `/en/:permalink` 的页面
+
+对于 page 的多语言支持，可直接在 `source` 文件夹下新建对应语言的文件夹，并将 `index.md` 放入其中，如 `source/en/about/index.md`。这会生成 `/en/about` 的页面
+
+详情请见 [如何为Hexo添加多语言支持](https://d-sketon.github.io/20250223/hexo-theme-reimu-i18n/)
+
+</details>
+
+<details>
 <summary>Icon</summary>
 
 ### Icon
 
-Icon 默认使用本项目提供的 iconfont（v0.1.3+）
+Icon 默认使用本主题提供的 iconfont（v0.1.3+）
 
 ```yml
-icon_font: 4552607_bq08450reo
+icon_font: 4552607_0khxww3tj3q9
 ```
 
 如果想要继续使用 fontawesome 图标，请将 `icon_font` 设置为 `false`，此时会使用 `vendor` 中对应的 fontawesome
@@ -541,9 +586,21 @@ fontawesome:
 </details>
 
 <details>
-<summary>高级功能</summary>
+<summary>扩展功能</summary>
 
-### 高级功能
+### 扩展功能
+
+#### 暗黑模式
+
+默认为 `auto`，根据用户系统设置自动切换。可以设置为 `true` 或 `false` 改变默认状态
+
+```yaml
+dark_mode:
+  # true 代表暗黑模式默认开启
+  # false 代表暗黑模式默认关闭
+  # auto 代表根据用户系统设置自动切换
+  enable: auto # true | false | auto
+```
 
 #### Pace 进度条
 
@@ -740,6 +797,7 @@ player:
       volume:
       mutex:
       listFolded:
+      lrcType:
 ```
 
 ##### Aplayer + Meting
@@ -760,6 +818,7 @@ player:
       volume:
       mutex:
       listFolded:
+      lrcType:
   meting:
     enable: true
     meting_api: # custom api
@@ -768,6 +827,14 @@ player:
       server: 
       type: 
       auto:
+```
+
+#### Pangu 自动分割
+默认关闭，自动替你在文章中所有的中文字和半形的英文、数字、符号之间插入空白。
+
+```yml
+pangu:
+  enable: false 
 ```
 
 #### 分享链接/卡片（v1.3.0+）
@@ -821,14 +888,74 @@ share:
 
 其中第一个参数为文章的标题；第二个参数为文章的外部链接，第三个参数（可选）为卡片展示的封面，如果设置为 `auto` 则自动使用缺省封面
 
+#### heatMapCard 文章热力图 (v1.7.0+ 实验性功能)
+
+```yaml
+{% heatMapCard levelStandard %}
+```
+
+其中第一个参数为热力图的等级标准（按照文章字数分级），默认为 `"1000,5000,10000"`
+
 </details>
 
+<details>
+<summary>自定义容器</summary>
+
+### 自定义容器
+
+本主题提供了类似 vitepress 的自定义容器功能，使用前需要安装 [@reimujs/hexo-renderer-markdown-it-plus](https://github.com/D-Sketon/hexo-renderer-markdown-it-plus)，并在内层 `_config.yml` 中将 `markdown.container` 改为 `true`
+
+```yaml
+markdown:
+  container: true
+```
+
+使用方法如下：
+
+```markdown
+::: info
+This is an info box.
+:::
+
+::: tip
+This is a tip.
+:::
+
+::: warning
+This is a warning.
+:::
+
+::: danger
+This is a dangerous warning.
+:::
+
+::: danger STOP
+Danger zone, do not proceed
+:::
+
+::: details
+This is a details block.
+:::
+```
+
+</details>
 <details>
 <summary>自定义主题</summary>
 
 hexo-theme-reimu 主题支持高度的自定义，你可以通过修改 `_config.yml` 来定制你的主题。
 
-#### 定制主题颜色
+#### 动态适配主题色 (v1.7.0+ 实验性功能)
+
+默认关闭，打开后会基于 Google's Material You 的设计规范根据文章头图的主色调动态生成主题色
+
+```yml
+material_theme:
+  enable: false # true | false
+```
+
+> 注意：当开启该功能时，会在 banner 的 img 元素上添加 `crossorigin="anonymous"` 属性，以获取图片的主色调，所以请确保你的图片服务器支持跨域访问，或使用第三方图片代理。
+
+#### 手动定制主题颜色
 
 hexo-theme-reimu 主题支持通过 CSS 变量定制主题颜色，你可以通过修改 `:root` 伪类下的 CSS 变量来定制你的主题颜色。
 

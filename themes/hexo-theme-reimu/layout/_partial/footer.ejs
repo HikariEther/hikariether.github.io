@@ -4,11 +4,17 @@
   </div>
   <div id="footer-info">
     <% if (theme.copyright) { %>
-      <%- render(theme.copyright, 'pug'); %>
+      <%- render(theme.copyright, 'html'); %>
     <% } %>
     <div>
       <span class="icon-copyright"></span>
-      <%= theme.footer.since %>-<%= date(new Date(), 'YYYY') %>
+      <% const currentYear = new Date().getFullYear(); %>
+      <% const sinceYear = parseInt(theme.footer.since, 10); %>
+      <% if (sinceYear === currentYear) { %>
+        <%= sinceYear %>
+      <% } else { %>
+        <%= sinceYear %>-<%= currentYear %>
+      <% } %>
       <span class="footer-info-sep <%- theme.footer.icon?.rotate ? 'rotate' : '' %>"></span>
       <%= config.author || config.title %>
     </div>
@@ -21,10 +27,10 @@
     <% if (theme.footer.count) { %>
       <div>
         <span class="icon-brush"></span>
-        <%= totalcount(site) %>
+        <%= totalcount() %>
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        <%= totalmin2read(site) %>
+        <%= totalmin2read() %>
       </div>
     <% } %>
     <% if (theme.icp.icpnumber) { %>
