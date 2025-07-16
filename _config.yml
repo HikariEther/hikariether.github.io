@@ -105,3 +105,8 @@ deploy:
 
 markdown_it_plus:
     rawLaTeX: true
+
+githubEmojis:
+  localEmojis:
+    bgm38:
+      src: /images/bgm38.jpg

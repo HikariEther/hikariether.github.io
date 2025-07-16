@@ -44,9 +44,9 @@
           "per_page": parseInt("<%= theme.algolia_search.hits.per_page %>")
         },
         labels: {
-          "input_placeholder": "<%= theme.algolia_search.labels.input_placeholder %>",
-          "hits_empty": "<%= theme.algolia_search.labels.hits_empty %>",
-          "hits_stats": "<%= theme.algolia_search.labels.hits_stats %>"
+          "input_placeholder": "<%= __('algolia.input_placeholder') %>",
+          "hits_empty": "<%= __('algolia.hits_empty') %>",
+          "hits_stats": "<%= __('algolia.hits_stats') %>"
         }
       }
     };
@@ -79,6 +79,12 @@
             }
             if (script.src) {
               scriptElement.src = script.src;
+              if (script.integrity) {
+                scriptElement.integrity = script.integrity;
+              }
+              if (script.crossOrigin) {
+                scriptElement.crossOrigin = script.crossOrigin;
+              }
               scriptElement.onload = resolve;
               scriptElement.onerror = reject;
             }
@@ -397,11 +403,23 @@
   <%- js({src: vendorCdn(theme.vendor.js.aplayer)[0], integrity: vendorCdnIntegrity(theme.vendor.js.aplayer)[0], crossorigin: "anonymous"}) %>
   <% if (!theme.player.meting.enable) { %>
     <script>
+      var isMobile = window.matchMedia('(max-width: 959px)').matches;
+      if (isMobile) {
+      const aplayer = _$('#aplayer');
+        if (aplayer) {
+          const aside = aplayer.parentNode;
+          if (aside?.tagName === 'ASIDE') {
+            aplayer.removeAttribute('data-aos');
+            aside.removeChild(aplayer);
+            document.body.appendChild(aplayer);
+          }
+        }
+      }
       const ap = new APlayer({
         theme: "var(--color-link)",
         container: document.getElementById('aplayer'),
         audio: <%- JSON.stringify(theme.player.aplayer.options.audio) %> || [],
-        fixed: <%= JSON.stringify(theme.player.aplayer.options.fixed) %> || false,
+        fixed: isMobile ? true : (<%= JSON.stringify(theme.player.aplayer.options.fixed) %> || false),
         autoplay: <%= JSON.stringify(theme.player.aplayer.options.autoplay) %> || false,
         loop: '<%= theme.player.aplayer.options.loop %>' || 'all',
         order: '<%= theme.player.aplayer.options.order %>' || 'list',
@@ -416,12 +434,26 @@
 <% } %>
 
 <% if (theme.player.meting.enable) { %>
-  <%- js({src: vendorCdn(theme.vendor.js.meting)[0], integrity: vendorCdnIntegrity(theme.vendor.js.meting)[0], crossorigin: "anonymous"}) %>
   <% if (theme.player.meting.meting_api) { %>
     <script>
       var meting_api = "<%= theme.player.meting.meting_api %>";
     </script>
   <% } %>
+  <script>
+    var isMobile = window.matchMedia('(max-width: 959px)').matches;
+    if (isMobile) {
+      const meting = _$('meting-js');
+      if (meting) {
+        meting.setAttribute('fixed', 'true');
+        const aside = meting.parentNode;
+        if (aside?.tagName === 'ASIDE') {
+          aside.removeChild(meting);
+          document.body.appendChild(meting);
+        }
+      }
+    }
+  </script>
+  <%- js({src: vendorCdn(theme.vendor.js.meting)[0], integrity: vendorCdnIntegrity(theme.vendor.js.meting)[0], crossorigin: "anonymous"}) %>
 <% } %>
 
 <% if (theme.pangu.enable) { %>

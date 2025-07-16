@@ -3,7 +3,7 @@
     <div class="loading-left-bg loading-bg"></div>
     <div class="loading-right-bg loading-bg"></div>
     <div class="spinner-box">
-      <div class="loading-taichi">
+      <div class="loading-taichi <%- theme.preloader.rotate ? 'rotate' : '' %>">
         <% if (theme.preloader.icon) { %>
           <img src="<%- url_for(theme.preloader.icon, {relative: false})%>" alt="loading" />
         <% } else { %>
@@ -14,7 +14,11 @@
           </svg>
         <% } %>
       </div>
-      <div class="loading-word"><%= theme.preloader.text %></div>
+      <% var preloaderText = theme.preloader.text; %>
+      <% if (typeof preloaderText !== 'string') { %>
+        <% preloaderText = preloaderText[post.lang]; %>
+      <% } %>
+      <div class="loading-word"><%= preloaderText %></div>
     </div>
   </div>
   </div>
@@ -45,6 +49,7 @@
 <% } %>
 <div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
 </div>
+<div id="heatmap-tooltip"></div>
 
 <% if (theme.service_worker.enable) { %>
   <div class="notification-wrapper">

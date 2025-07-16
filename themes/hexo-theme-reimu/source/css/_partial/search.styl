@@ -6,7 +6,6 @@
   width: 700px
   max-height: 80%
   margin-left: -350px
-  padding: 3px 0 0 10px
   background: var(--color-wrap)
   color: var(--grey-9)
   z-index: 9999
@@ -22,7 +21,6 @@
     transform: scale(1)
 
   @media mg-normal
-    padding: 5px
     top: 0
     left: 0
     margin: 0
@@ -38,10 +36,7 @@
 .popup-btn-close
   color: var(--red-1)
   font: 20px bold
-  if reimu_cursor
-    cursor: var(--cursor-pointer)
-  else
-    cursor: pointer
+  cursor: var(--cursor-pointer) !important
   padding-left: 15px
   transition: 0.3s
 
@@ -80,8 +75,7 @@
 
 .reimu-powered
   float: right
-  if reimu_cursor
-    cursor: var(--cursor-default) !important
+  cursor: var(--cursor-default) !important
 
   img
     display: inline-block
@@ -108,8 +102,7 @@
     color: var(--red-1)
 
 #reimu-hits
-  margin-top: 10px
-  margin-left: 10px
+  margin: 10px 0 0 10px
 
   mark
     background: var(--red-1)
@@ -131,10 +124,8 @@
     background: var(--color-h2-after)
     display: inline-block
     vertical-align: middle
-    margin-top: -2px
-    margin-right: 11px
-    margin-left: -25px
-    box-shadow: 0 2px 12px var(--color-red-6-shadow)
+    margin: -2px 11px 0 -25px
+    box-shadow: var(--shadow-red-6-shadow)
     opacity: 0.5
     transition: 0.2s
 
@@ -158,7 +149,7 @@
 
     &:hover
       background: var(--red-2)
-      box-shadow: 0 0 10px var(--color-red-6-shadow)
+      box-shadow: var(--shadow-red-6-shadow)
       color: #fff
 
   .pagination-item
@@ -174,7 +165,7 @@
       color: #fff
       background: var(--red-1)
       font-weight: bold
-      box-shadow: 0 0 10px var(--color-red-6-shadow)
+      box-shadow: var(--shadow-red-6-shadow)
 
   .disabled-item
     display: none

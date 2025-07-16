@@ -33,15 +33,15 @@ A combination of [landscape](https://github.com/hexojs/hexo-theme-landscape)、[
 
 ## Features
 
-### Basic Functions
+### Basic Features
 - ✨ Full blog functionality
-- 🔄 Compatible with Hexo6+
+- 🔄 Compatible with Hexo 6+
 - 📱 Responsive layout
 - 🌙 Dark mode support
 - 🅰️ i18n support
 
 ### Code & Math
-- 🖥️ Code highlighting and copying
+- 🖥️ Code highlighting & copying
 - ➗ KaTeX / MathJax3 math formula support
 - 📊 Mermaid flowchart support
 
@@ -80,15 +80,17 @@ A combination of [landscape](https://github.com/hexojs/hexo-theme-landscape)、[
 - 🎨 Icon support:
   - Iconfont
   - FontAwesome
-- 🔗 Custom tag plugins for:
+- 🔗 Built-in tag plugins:
   - Internal links
   - External links
   - Friend links
   - Heatmap
+  - Tag Roulette
 - 🎨 Dynamic theme color adaptation
 - 🎨 Custom Containers
 - ©️ Article copyright declaration
 - 🌐 Custom CDN source configuration
+- 📜 Custom Font Family
 - 🎨 Share card functionality
 
 ## Installation
@@ -110,9 +112,6 @@ git clone https://github.com/D-Sketon/hexo-theme-reimu.git
 And modify the theme in `_config.yml`
 
 ```yaml
-# Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
 theme: reimu
 ```
 
@@ -240,16 +239,24 @@ highlight:
 
 Code blocks also provide a code copying feature - click the copy button in the top right corner of the code block to copy the code. You can configure the copy functionality in the inner `_config.yml`.  
 
-`success` is the prompt shown when copying is successful, `fail` is shown when copying fails. Additionally, you can configure copyright notices - when the copied text exceeds `count` characters, the `content` copyright notice will be added after the copied content.
+`success` is the prompt shown when copying is successful, `fail` is shown when copying fails. Additionally, you can configure copyright notices - when the copied text exceeds `count` characters, the copyright notice will be added after the copied content.
 
 ```yaml
 clipboard:
-  success: 复制成功(*^▽^*)
-  fail: 复制失败 (ﾟ⊿ﾟ)ﾂ
+  success: 
+    en: Copy successfully (*^▽^*)
+    zh-CN: 复制成功 (*^▽^*)
+    zh-TW: 複製成功 (*^▽^*)
+    ja: コピー成功 (*^▽^*)
+  fail: 
+    en: Copy failed (ﾟ⊿ﾟ)ﾂ
+    zh-CN: 复制失败 (ﾟ⊿ﾟ)ﾂ
+    zh-TW: 複製失敗 (ﾟ⊿ﾟ)ﾂ
+    ja: コピー失敗 (ﾟ⊿ﾟ)ﾂ
   copyright:
     enable: false
     count: 50 # Add copyright notice when character count exceeds this number
-    content: 本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！
+    license_type: by-nc-sa # https://creativecommons.org/licenses
 ```
 
 v1.1.0 added configuration to control the default expansion state of code blocks. `expand` can be set to `true`, `false`, or a number - the number indicates that code blocks will be collapsed by default when the number of lines exceeds this value.
@@ -295,7 +302,6 @@ Please refer to their [official documentation](https://waline.js.org/guide/get-s
 waline:
   enable: true
   serverURL: "your server url"
-  lang: zh-CN
   locale: {} # https://waline.js.org/guide/features/i18n.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80
   emoji:
     - https://unpkg.com/@waline/emojis@1.2.0/weibo
@@ -341,7 +347,6 @@ giscus:
   reactionsEnabled: 1
   emitMetadata: 0
   inputPosition: bottom
-  lang: zh-CN
 ```
 
 If using [gitalk](https://gitalk.github.io/)  
@@ -578,12 +583,17 @@ If you want to continue using fontawesome icons, set `icon_font` to `false`. Thi
 ```yml
 fontawesome:
   high_priority:
-    - webcache|@fortawesome/fontawesome-free@6.5.1/css/regular.min.css
-    - webcache|@fortawesome/fontawesome-free@6.5.1/css/solid.min.css
+    - src: webcache|@fortawesome/fontawesome-free@6.5.1/css/regular.min.css
+      integrity: sha384-k5640LgghgAohDLPwSqVWa96yQwWouT6wsAL+J1g0CFJVITNKYkIh1XpPLYKQe7Y
+    - src: webcache|@fortawesome/fontawesome-free@6.5.1/css/solid.min.css
+      integrity: sha384-8yO/A/BtltnG0hDxdwmmkza8UAleyDoAD1FhXiH6rsOQQsCho1P6WZP9TpBBH3YP
   low_priority:
-    - webcache|@fortawesome/fontawesome-free@6.5.1/css/brands.min.css
-    - webcache|@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css
-    - webcache|@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css
+    - src: webcache|@fortawesome/fontawesome-free@6.5.1/css/brands.min.css
+      integrity: sha384-/BRyRRN0wxxRgh/DAXU621go9pdoMHl6LFPiX5Pp8PZYZlKBQCDXj9X9DHx6LOud
+    - src: webcache|@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css
+      integrity: sha384-/mBKnLlGtog8q2qQrgugURRDV+iHWHAPvM5KulYXT1C2ErKOKkBI0vbff8ZPq7rL
+    - src: webcache|@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css
+      integrity: sha384-d2Yn1/9Iw78r3oqwk5B+EcpRcmepXR5LyhmRF2a+WoSe9mpRGvVk0ZviFwDGDOTO
 ```
 
 </details>
@@ -710,6 +720,7 @@ article_copyright:
     date: # true | false Show creation date in copyright card?
     updated: # true | false Show update date in copyright card?
     license: # true | false Show license in copyright card?
+    license_type: by-nc-sa # https://creativecommons.org/licenses
 ```
 
 Additionally, this can be controlled through article front-matter, which takes precedence over global configuration
@@ -740,7 +751,11 @@ Disabled by default
 outdate:
   enable: false
   daysAgo: 180 # How many days old before an article is considered outdated
-  message: 本文最后更新于 {time}，请注意文中内容可能已经发生变化。
+  message:
+    en: This article was last updated on {time}. Please note that the content may no longer be applicable.
+    zh-CN: 本文最后更新于 {time}，请注意文中内容可能已不适用。
+    zh-TW: 本文最後更新於 {time}，請注意文中內容可能已不適用。
+    ja: この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。
 ```
 
 #### Sponsorship (v0.3.2+)
@@ -750,7 +765,11 @@ Disabled by default
 ```yaml
 sponsor:
   enable: false # Display sponsorship QR code?
-  tip: Buy the author a coffee! # Sponsorship prompt
+  tip: # Sponsorship prompt
+    zh-CN: 请作者喝杯咖啡吧
+    zh-TW: 請作者喝杯咖啡吧
+    en: Buy me a coffee
+    ja: コーヒーを買ってください
   icon:
     url: "../images/taichi.png" # Sponsorship icon, path relative to css/style.css, so need to go up one level to find images folder
     rotate: true # Rotate icon?
@@ -897,6 +916,17 @@ The first parameter is the article title; the second parameter is the external l
 
 The first parameter is the level standard for the heatmap (graded based on the word count of the articles), with the default value being `"1000,5000,10000"`. 
 
+#### tagRoulette
+
+```yaml
+{% heatMapCard tags icon %}
+```
+
+tagRoulette is an interactive element that provides a random tag display feature. When the button is clicked, a tag is randomly selected and displayed from a predefined pool of tags.  
+
+- tags: Optional parameter specifying the tag pool. Multiple tags should be separated by English commas (,). If not provided, a few example tags will be used by default. Example: `tags="memory decline, loss of expression, increased laziness, numbness, so sleepy"`  
+- icon: Optional parameter to customize the trigger button's icon. Default: 🕹️ (game controller emoji). Can be replaced with any emoji or text, such as 🎲, 🎯, 🔄, etc.
+
 </details>
 
 <details>
@@ -961,29 +991,56 @@ material_theme:
 
 The hexo-theme-reimu theme supports theme color customization through CSS variables. You can customize your theme colors by modifying CSS variables under the `:root` pseudo-class.
 
-The variables file is located at `source/css/_variables.styl`. You can find all CSS variables there, but you really only need to modify the variables under these pseudo-classes:
+v1.8.0 added `internal_theme` configuration to customize theme colors. You can change the theme colors by modifying the `internal_theme` configuration in `params.yml`. The default theme colors are as follows:
 
-```stylus
-:root
-  --red-0: hsl(0, 100%, 50%)
-  --red-1: hsl(0, 100%, 66%)
-  --red-2: hsl(0, 100%, 74%)
-  --red-3: hsl(0, 100%, 84%)
-  --red-4: hsl(0, 100%, 91%)
-  --red-5: hsl(0, 100%, 95%)
-  --red-5-5: hsl(0, 100%, 96%)
-  --red-6: hsl(0, 100%, 98%)
+```yaml
+internal_theme:
+  light:
+    --red-0: '#ff0000'
+    --red-1: '#ff5252'
+    --red-2: '#ff7c7c'
+    --red-3: '#ffafaf'
+    --red-4: '#ffd0d0'
+    --red-5: '#ffecec'
+    --red-5-5: '#fff3f3'
+    --red-6: '#fff7f7'
+    --color-red-6-shadow: 'rgba(255, 78, 78, 0.6)'
+    --color-red-3-shadow: 'rgba(255, 78, 78, 0.3)'
 
-  --color-red-6-shadow: hsla(0, 100%, 65%, 0.6)
-  --color-red-3-shadow: hsla(0, 100%, 65%, 0.3)
+    --highlight-nav: '#e6e6e6'
+    --highlight-scrollbar: '#d6d6d6'
+    --highlight-background: '#f7f7f7'
+    --highlight-current-line: '#dadada'
+    --highlight-selection: '#e9e9e9'
+    --highlight-foreground: '#4d4d4d'
+    --highlight-comment: '#7d7d7d'
+    --highlight-red: '#c8362b'
+    --highlight-orange: '#b66014'
+    --highlight-yellow: '#cb911d'
+    --highlight-green: '#2ea52e'
+    --highlight-aqua: '#479d9d'
+    --highlight-blue: '#1973b8'
+    --highlight-purple: '#7135ac'
+  dark:
+    --red-4: 'rgba(255, 208, 208, 0.5)'
+    --red-5: 'rgba(255,228,228,0.15)'
+    --red-5-5: 'rgba(255,236,236,0.05)'
+    --red-6: 'rgba(255, 243, 243, 0.2)'
 
-
-[data-theme="dark"]
-  root
-    --red-4: hsla(0, 100%, 91%, 0.5)
-    --red-5: hsla(0, 100%, 95%, 0.2)
-    --red-5-5: hsla(0, 100%, 96%, 0.1)
-    --red-6: hsla(0, 100%, 98%, 0.2)
+    --highlight-nav: '#2e353f'
+    --highlight-scrollbar: '#454d59'
+    --highlight-background: '#22272e'
+    --highlight-current-line: '#393939'
+    --highlight-selection: '#515151'
+    --highlight-foreground: '#cccccc'
+    --highlight-comment: '#999999'
+    --highlight-red: '#f47067'
+    --highlight-orange: '#f69d50'
+    --highlight-yellow: '#ffcc66'
+    --highlight-green: '#99cc99'
+    --highlight-aqua: '#66cccc'
+    --highlight-blue: '#54b6ff'
+    --highlight-purple: '#dcbdfb'
 ```
 
 #### Custom Fonts
@@ -993,6 +1050,7 @@ You can define Google Fonts through the following configuration:
 ```yaml
 # https://fonts.google.com/
 font:
+  enable: true # Enable Google Fonts
   article:
     - Mulish
     - Noto Serif SC
@@ -1018,6 +1076,17 @@ local_font:
     - monospace
 ```
 
+v1.8.0 added `custom_font` configuration for defining custom fonts, which has the highest priority:
+
+```yaml
+custom_font:
+  enable: true
+  article:
+    - css: https://fontsapi.zeoseven.com/292/main/result.css # font css
+      name: LXGW WenKai # font css
+  code:
+```
+
 #### Customizing Icons
 
 v1.0.0 underwent significant refactoring and exposed many configurations for changing the original icons
@@ -1025,6 +1094,8 @@ v1.0.0 underwent significant refactoring and exposed many configurations for cha
 ##### Header / Sidebar Icons
 
 The `menu` configuration structure changed in v1.0.0, allowing users to customize icons. When icon is empty, it defaults to the Taichi icon. You can fill in a hexadecimal number to customize the icon, supporting both FontAwesome and icon font.
+
+v1.8.4 icon supports image path, such as `/avatar/avatar.webp`.
 
 ```yaml
 menu:
@@ -1090,6 +1161,8 @@ v1.0.0 added `anchor_icon` configuration for customizing anchor icons, defaults 
 ```yaml
 anchor_icon: # if the icon is empty, the default # icon is used
 ```
+
+v1.8.5 `anchor_icon` supports passing `false` to hide anchor icon.
 
 ##### Cursor Icon (v1.3.0+)
 
